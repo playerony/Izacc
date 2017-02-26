@@ -1,5 +1,7 @@
 package com.izacc.character;
 
+import com.izacc.ability.Ability;
+
 /**
  * Created by pawel_000 on 2017-02-25.
  */
@@ -42,6 +44,9 @@ public class Character {
 
     public void render(float delta){
         player.render(delta);
+        
+        for(Ability a : player.getAbilities())
+            a.render(delta);
     }
 
     /**

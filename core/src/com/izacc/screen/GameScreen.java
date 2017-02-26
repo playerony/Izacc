@@ -15,7 +15,7 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     protected void init() {
-        character = new Character(Character.Type.WARRIOR);
+        character = new Character(Character.Type.MAGE);
     }
 
     @Override

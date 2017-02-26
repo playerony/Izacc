@@ -2,6 +2,7 @@ package com.izacc.character;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.izacc.utility.Entity;
 
 /**
  * Created by pawel_000 on 2017-02-25.
@@ -20,7 +21,7 @@ public class Warrior extends Player {
     }
 
     @Override
-    public void attack() {
+    public void attack(Entity entity) {
 
     }
 }
