@@ -43,10 +43,10 @@ public class Character {
     }
 
     public void render(float delta){
-        player.render(delta);
-        
         for(Ability a : player.getAbilities())
             a.render(delta);
+        
+        player.render(delta);
     }
 
     /**

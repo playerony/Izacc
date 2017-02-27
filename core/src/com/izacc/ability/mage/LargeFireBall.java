@@ -14,7 +14,8 @@ import com.izacc.ability.Ability;
  * @author pawel_000
  */
 public class LargeFireBall extends Ability{
-    float r = 0.5f;
+    private float INCREASE_RADIUS_BY = 0.01f;
+    private float r = 0.5f;
 
     public LargeFireBall(int direction, float x, float y) {
         super(direction, x, y);
@@ -54,7 +55,10 @@ public class LargeFireBall extends Ability{
 
     @Override
     public void update() {
-        r+=0.5f;
+        if(r < 25.0f){
+            INCREASE_RADIUS_BY+=0.1f;
+            r+=INCREASE_RADIUS_BY;
+        }
         
         x+=xVel;
         y+=yVel;
