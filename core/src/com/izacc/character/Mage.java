@@ -2,9 +2,6 @@ package com.izacc.character;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.izacc.ability.mage.BreathOfDeath;
-import com.izacc.ability.mage.LargeFireBall;
-import com.izacc.ability.mage.SmallFireBall;
 import com.izacc.utility.Entity;
 
 /**

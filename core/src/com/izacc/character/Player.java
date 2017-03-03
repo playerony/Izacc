@@ -3,10 +3,6 @@ package com.izacc.character;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.izacc.ability.Ability;
-import com.izacc.ability.mage.BreathOfDeath;
-import com.izacc.ability.mage.LargeFireBall;
-import com.izacc.ability.mage.SmallFireBall;
 import com.izacc.utility.Entity;
 import java.util.ArrayList;
 
@@ -19,14 +15,12 @@ public abstract class Player extends Entity {
     
     private static boolean clicked = true;
 
-    protected enum Spell { SPELL_1, SPELL_2, SPELL_3 }; 
     protected enum Direction { LEFT, RIGHT, UP, DOWN, STAY };
     
     private Direction textureDirection;
     private Direction direction;
-    private Spell spell;
     
-    protected ArrayList<Ability> abilities;
+    protected ArrayList<Bullet> bullets;
 
     public Player(float x, float y) {
         super(x, y);
@@ -41,16 +35,15 @@ public abstract class Player extends Entity {
     private void init(){
         direction = Direction.STAY;
         textureDirection = Direction.RIGHT;
-        spell = Spell.SPELL_1;
         
-        abilities = new ArrayList<Ability>();
+        bullets = new ArrayList<Bullet>();
     }
 
     public void update(){
         inputHandler();
         move();
         
-        for(Ability a : abilities)
+        for(Bullet a : bullets)
             a.update();
     }
 
@@ -76,29 +69,10 @@ public abstract class Player extends Entity {
     }
     
     private void abilityInputHandler(){
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_1))
-            spell = Spell.SPELL_1;
-        else if(Gdx.input.isKeyPressed(Input.Keys.NUM_2))
-            spell = Spell.SPELL_2;
-        else if(Gdx.input.isKeyPressed(Input.Keys.NUM_3))
-            spell = Spell.SPELL_3;
-        
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && clicked){
             clicked = false;
             
-            switch(spell){
-                case SPELL_1:
-                    abilities.add(new SmallFireBall(textureDirection.ordinal(), x, y));
-                    break;
-                    
-                case SPELL_2:
-                    abilities.add(new LargeFireBall(textureDirection.ordinal(), x, y));
-                    break;
-                    
-                default:
-                    abilities.add(new BreathOfDeath(textureDirection.ordinal(), x, y));
-                    break;
-            }
+            bullets.add(new Bullet(textureDirection.ordinal(), x, y));
         }else if(!Gdx.input.isKeyPressed(Input.Keys.SPACE) && !clicked){
             clicked = true;
         }
@@ -141,7 +115,7 @@ public abstract class Player extends Entity {
      * Getters and Setters
      */
 
-    public ArrayList<Ability> getAbilities() {
-        return abilities;
+    public ArrayList<Bullet> getAbilities() {
+        return bullets;
     }
 }

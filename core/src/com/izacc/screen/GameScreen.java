@@ -1,6 +1,7 @@
 package com.izacc.screen;
 
 import com.izacc.character.Character;
+import com.izacc.equipment.Equipment;
 import com.izacc.game.Izacc;
 
 /**
@@ -8,6 +9,7 @@ import com.izacc.game.Izacc;
  */
 public class GameScreen extends AbstractScreen {
     private Character character;
+    private Equipment equipment;
 
     public GameScreen(Izacc izacc) {
         super(izacc);
@@ -16,6 +18,7 @@ public class GameScreen extends AbstractScreen {
     @Override
     protected void init() {
         character = new Character(Character.Type.MAGE);
+        equipment = new Equipment();
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.izacc.screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Timer;
 import com.izacc.game.Izacc;
+import com.izacc.utility.Path;
 
 /**
  * Created by pawel_000 on 2017-02-25.
@@ -23,7 +24,7 @@ public class SplashScreen extends AbstractScreen {
 
     @Override
     protected void init() {
-        texture = new Texture("photos/photo.jpg");
+        texture = new Texture(Path.IMAGE_PATH + "photo.jpg");
     }
 
     @Override
