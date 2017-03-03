@@ -13,33 +13,45 @@ import java.io.Serializable;
  *
  * @author pawel_000
  */
-public class Item implements Serializable{
+public class Item implements Serializable
+{
     private static final long serialVersionUID = 1L;
     
     public String name;
-    public String type;
     public String file;
     public String description;
     
-    public int id;
     public int count = 1;
     
     public boolean disable;
     public boolean packable;
     public boolean isPermanent;
     
-    public int bonus;
+    public float bonus;
+    public int time;
     public int buy;
     public int sell;
     
-    public Item(JsonValue json){
-        this.disable = json.has("disable") ? json.getBoolean("disable") : false;
-        this.description = json.getString("description");
+    public ItemType itemType;
+    public EffectType effectType;
+    
+    public Item(JsonValue json)
+    {
+        this.file = json.getString("file");
         this.name = json.getString("name");
-        this.type = json.getString("type");
+        this.description = json.getString("description");
+        
+        this.disable = json.has("disable") ? json.getBoolean("disable") : false;
         this.packable = json.has("packable") ? json.getBoolean("packable") : true;
+        this.isPermanent = json.has("isPermanent") ? json.getBoolean("isPermanent") : true;
+        
+        this.bonus = json.has("bonus") ? json.getInt("bonus") : 0.0f;
+        this.time = json.has("time") ? json.getInt("time") : 0;
         this.buy = json.has("buy") ? json.getInt("buy") : 0;
         this.sell = json.has("sell") ? json.getInt("sell") : 0;
+        
+         this.itemType = ItemType.valueOf(json.getString("itemType"));
+         this.effectType = EffectType.valueOf(json.getString("type"));
     }
     
     public String getIcon(){

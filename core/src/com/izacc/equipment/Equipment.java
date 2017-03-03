@@ -5,37 +5,58 @@
  */
 package com.izacc.equipment;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
-import com.izacc.utility.Path;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
  * @author pawel_000
  */
 public class Equipment {
-    public Equipment(){
+    private ItemCreator itemCreator;
+    private ArrayList<Item> bagpack; 
+    
+    public Equipment()
+    {
         init();
     }
     
     public void init()
     {
-        Json json = new Json();
-                
-        JsonReader jsonReader = new JsonReader();
-        ArrayList<Item> item = new ArrayList<Item>();
-        JsonValue jsonValue = jsonReader.parse(Gdx.files.internal(Path.SCRIPT_POTION_PATH + "healing.json"));
+        bagpack = new ArrayList<Item>();
+        itemCreator = new ItemCreator();
         
-        JsonValue potionsJson = jsonValue.get("healing");
+        Random r = new Random();
         
-        for (JsonValue potionJson : potionsJson.iterator()) // iterator() returns a list of children
+        for(int i=0;  i<100 ; i++){
+            addItem(itemCreator.createHealPotion(1));
+            addItem(itemCreator.createHealPotion(2));
+            addItem(itemCreator.createHealPotion(3));
+        }
+        
+        for(Item it : bagpack)
         {
-            System.out.println(potionJson.getString("name") + " " + potionJson.getString("bonus"));
+            System.out.println(it.name + " " + it.count + " " + it.effectType.toString());
         }
     }
 
+    public void addItem(Item item){
+        if(item != null)
+        {
+            boolean isAdd = false;
+            for(Item it : bagpack)
+                if(item.name.equals(it.name) && it.packable)
+                {
+                    it.count++;
+                    isAdd = true;
+                }
+
+            if(!isAdd)
+                bagpack.add(item);
+        }
+    }
+    
+    public void addPotion(){
+        
+    }
 }

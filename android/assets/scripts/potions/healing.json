@@ -1,38 +1,56 @@
-{
-	healing: [
-		{
-			name: "Essence of Healing",
-			description: "Healing 10 hitpoints",
-			file: "1.png",
-			type: "hp",
-			bonus: 10,
-			buy: 15,
-			sell: 5,
-			disable: true,
-			isPermanent: true
-		},
-		
-		{
-			name: "Extract of Healing",
-			description: "Healing 20 hitpoints",
-			file: "1.png",
-			type: "hp",
-			bonus: 20,
-			buy: 30,
-			sell: 15,
-			disable: true,
-			isPermanent: true
-		},
-		
-		{
-			name: "Elixir of Healing",
-			description: "Healing 50 hitpoints",
-			type: "hp",
-			bonus: 50,
-			buy: 100,
-			sell: 50,
-			disable: true,
-			isPermanent: true
-		}
-	]
-}
+[
+	{
+		name: "Essence of Healing",
+		description: "Healing 10 hitpoints",
+		file: "1.png",
+		type: "hp",
+		bonus: 10,
+		buy: 15,
+		sell: 5,
+		disable: true,
+		packable: true,
+		isPermanent: false,
+		itemType: "potion"
+	},
+			
+	{
+		name: "Extract of Healing",
+		description: "Healing 20 hitpoints",
+		file: "2.png",
+		type: "hp",
+		bonus: 20,
+		buy: 30,
+		sell: 15,
+		disable: true,
+		packable: true,
+		isPermanent: false,
+		itemType: "potion"
+	},
+			
+	{
+		name: "Elixir of Healing",
+		description: "Healing 50 hitpoints",
+		file: "3.png",
+		type: "hp",
+		bonus: 50,
+		buy: 100,
+		sell: 50,
+		disable: true,
+		packable: true,
+		isPermanent: false,
+		itemType: "potion"
+	},
+	
+	{
+		name: "Elixir of Life",
+		description: "Adding 10 hitpoints",
+		file: "3.png",
+		type: "max_hp",
+		bonus: 10,
+		buy: 200,
+		sell: 100,
+		disable: true,
+		packable: true,
+		itemType: "potion"
+	}
+]
