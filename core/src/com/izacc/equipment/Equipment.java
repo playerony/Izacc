@@ -12,9 +12,11 @@ import java.util.Random;
  *
  * @author pawel_000
  */
-public class Equipment {
+public class Equipment 
+{
     private ItemCreator itemCreator;
     private ArrayList<Item> bagpack; 
+    private static final int capacity = 25;
     
     public Equipment()
     {
@@ -23,40 +25,49 @@ public class Equipment {
     
     public void init()
     {
-        bagpack = new ArrayList<Item>();
+        bagpack = new ArrayList<Item>(capacity);
         itemCreator = new ItemCreator();
         
+        for(int i=0 ; i<capacity ; i++)
+            bagpack.add(null);
+        
         Random r = new Random();
-        
-        for(int i=0;  i<100 ; i++){
-            addItem(itemCreator.createHealPotion(1));
-            addItem(itemCreator.createHealPotion(2));
-            addItem(itemCreator.createHealPotion(3));
-        }
-        
-        for(Item it : bagpack)
-        {
-            System.out.println(it.name + " " + it.count + " " + it.effectType.toString());
-        }
     }
 
-    public void addItem(Item item){
+    public void addItem(Item item)
+    {
         if(item != null)
         {
             boolean isAdd = false;
+            
             for(Item it : bagpack)
-                if(item.name.equals(it.name) && it.packable)
+                if(it != null && item.name.equals(it.name) && it.packable)
                 {
                     it.count++;
                     isAdd = true;
+                    
+                    break;
                 }
 
             if(!isAdd)
-                bagpack.add(item);
+                for(int i=0 ; i<capacity ; i++)
+                {
+                    if(bagpack.get(i) == null)
+                    {
+                        bagpack.set(i, item);
+                        break;
+                    }
+                }
         }
     }
+
+    public ArrayList<Item> getBagpack()
+    {
+        return bagpack;
+    }
     
-    public void addPotion(){
+    public void addPotion()
+    {
         
     }
 }

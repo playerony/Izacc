@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public abstract class Player extends Entity {
     private final float speed = 5.1f;
-    private final float friction = 0.9f;
+    private final float friction = 0.5f;
     
     private static boolean clicked = true;
 

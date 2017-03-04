@@ -9,7 +9,8 @@ package com.izacc.equipment;
  *
  * @author pawel_000
  */
-public enum EffectType {
+public enum EffectType 
+{
     hp,
     max_hp,
     speed,

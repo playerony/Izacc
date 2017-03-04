@@ -11,9 +11,10 @@ import com.badlogic.gdx.utils.JsonValue;
  *
  * @author pawel_000
  */
-public class SpellCard extends Item{
-    
-    public SpellCard(JsonValue json) {
+public class SpellCard extends Item
+{
+    public SpellCard(JsonValue json) 
+    {
         super(json);
     }
     

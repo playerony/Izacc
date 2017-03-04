@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.izacc.game.Izacc;
@@ -14,15 +16,20 @@ import com.izacc.game.Izacc;
  */
 public abstract class AbstractScreen implements Screen {
     public OrthographicCamera camera;
-    public SpriteBatch batch;
+    public SpriteBatch batch, equipmentBatch;
     public Izacc izacc;
     protected Stage stage;
+    public ShapeRenderer shapeRenderer;
+    public BitmapFont font;
 
     public AbstractScreen(Izacc izacc){
         this.izacc = izacc;
         createCamera();
         stage = new Stage(new StretchViewport(Izacc.SCREEN_WIDTH, Izacc.SCREEN_HEIGHT, camera));
         batch = new SpriteBatch();
+        equipmentBatch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+        font = new BitmapFont();
         Gdx.input.setInputProcessor(stage);
 
         init();

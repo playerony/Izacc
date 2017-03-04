@@ -9,11 +9,15 @@ package com.izacc.utility;
  *
  * @author pawel_000
  */
-public class Path {
-    // Ścieżka wskazująca na folder android/assets/
+public class Path 
+{
+    // Base path to android/assets/
     public static final String BASE_PATH = "";
     
     public static final String IMAGE_PATH = BASE_PATH + "image/";
+    
+    // Path to icons
+    public static final String ICON_PATH = BASE_PATH + "icons/";
     
     // Path to *.json scripts
     public static final String SCRIPT_PATH = BASE_PATH + "scripts";

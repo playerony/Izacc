@@ -11,13 +11,10 @@ import java.io.Serializable;
  *
  * @author pawel_000
  */
-public enum ItemType implements Serializable{
+public enum ItemType
+{
     potion,
     stone,
     bag,
-    spell;
-    
-    public String getStatus() {
-        return this.name();
-    }
+    spell
 }

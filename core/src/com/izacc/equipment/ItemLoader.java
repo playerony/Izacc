@@ -15,21 +15,25 @@ import com.izacc.utility.Path;
  *
  * @author pawel_000
  */
-public class ItemLoader {
+public class ItemLoader 
+{
     private Json json;
     private JsonReader jsonReader;
     private JsonValue jsonValue;
     
-    public ItemLoader(){
+    public ItemLoader()
+    {
         json = new Json();
         jsonReader = new JsonReader();
     }
     
-    public JsonValue getHealPotions(){
+    public JsonValue getHealPotions()
+    {
         return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_POTION_PATH + "healing.json"));
     }
     
-    public JsonValue getSpeedPotions(){
+    public JsonValue getSpeedPotions()
+    {
         return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_POTION_PATH + "speed.json"));
     }
 }

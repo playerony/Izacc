@@ -5,6 +5,7 @@
  */
 package com.izacc.equipment;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.JsonValue;
 import com.izacc.utility.Path;
 import java.io.Serializable;
@@ -54,7 +55,8 @@ public class Item implements Serializable
          this.effectType = EffectType.valueOf(json.getString("type"));
     }
     
-    public String getIcon(){
-        return Path.IMAGE_PATH + file;
+    public Texture getIcon()
+    {
+        return new Texture(Path.ICON_PATH + file);
     }
 }

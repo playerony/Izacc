@@ -17,7 +17,8 @@ public class Entity{
 
     protected ShapeRenderer shapeRenderer;
 
-    public Entity(float x, float y){
+    public Entity(float x, float y)
+    {
         this.x = x;
         this.y = y;
         this.xVel = 0.0f;
@@ -31,35 +32,43 @@ public class Entity{
      * Getters and Setters
      */
 
-    public float getxVel() {
+    public float getxVel() 
+    {
         return xVel;
     }
 
-    public void setxVel(float xVel) {
+    public void setxVel(float xVel) 
+    {
         this.xVel = xVel;
     }
 
-    public float getyVel() {
+    public float getyVel() 
+    {
         return yVel;
     }
 
-    public void setyVel(float yVel) {
+    public void setyVel(float yVel) 
+    {
         this.yVel = yVel;
     }
 
-    public float getY() {
+    public float getY() 
+    {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(float y) 
+    {
         this.y = y;
     }
 
-    public float getX() {
+    public float getX() 
+    {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(float x) 
+    {
         this.x = x;
     }
 }

@@ -29,10 +29,11 @@ public class ItemCreator
         random = new Random();
     }
     
-    private boolean isDrop(){
+    private boolean isDrop()
+    {
         int value = random.nextInt(9) + 1;
         
-        if(value <= 8)
+        if(value <= 5)
             return false;
         
         return true;
@@ -43,7 +44,8 @@ public class ItemCreator
         int rank = mobRank - 1;
         Item item = null;
         
-        if(isDrop()){
+        if(isDrop())
+        {
             if(rank >= 0 && rank < 2)
             {
                 jsonValue = itemLoader.getHealPotions().get(rank);
@@ -52,7 +54,7 @@ public class ItemCreator
             {
                 int value = random.nextInt(9) + 1;
 
-                if(value <= 7)
+                if(value <= 6)
                     jsonValue = itemLoader.getHealPotions().get(2);
                 else
                     jsonValue = itemLoader.getHealPotions().get(3);
