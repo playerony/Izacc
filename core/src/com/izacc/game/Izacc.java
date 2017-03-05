@@ -7,7 +7,7 @@ public class Izacc extends Game
 {
     public static String GAME_NAME = "Izac";
 
-    public static final int SCREEN_WIDTH = 700;
+    public static final int SCREEN_WIDTH = 900;
     public static final int SCREEN_HEIGHT = 480;
 
     private boolean paused = false;

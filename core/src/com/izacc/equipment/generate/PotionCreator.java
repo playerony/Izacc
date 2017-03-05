@@ -3,43 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.izacc.equipment;
+package com.izacc.equipment.generate;
 
-import com.badlogic.gdx.utils.JsonValue;
-import java.util.ArrayList;
-import java.util.Random;
+import com.izacc.equipment.Item;
 
 /**
  *
  * @author pawel_000
  */
-public class ItemCreator 
+public class PotionCreator extends Creator
 {
-    private ItemLoader itemLoader;
-    private JsonValue jsonValue;
-    private Random random;
-    
-    public ItemCreator()
-    {
-        init();
-    }
-    
-    public void init()
-    {
-        itemLoader = new ItemLoader();
-        random = new Random();
-    }
-    
-    private boolean isDrop()
-    {
-        int value = random.nextInt(9) + 1;
-        
-        if(value <= 4)
-            return false;
-        
-        return true;
-    }
-    
     public Item createHealPotion(int mobRank)
     {
         int rank = mobRank - 1;
@@ -59,31 +32,6 @@ public class ItemCreator
                     jsonValue = itemLoader.getHealPotions().get(2);
                 else
                     jsonValue = itemLoader.getHealPotions().get(3);
-            }
-
-            item = new Item(jsonValue);
-        }
-        
-        return item;
-    }
-    
-    public Item createBag(int mobRank)
-    {
-        int rank = mobRank - 1;
-        Item item = null;
-        
-        if(isDrop())
-        {
-            if(rank >= 0 && rank < 2)
-            {
-                jsonValue = itemLoader.getBags().get(rank);
-            }
-            else
-            {
-                int value = random.nextInt(9) + 1;
-
-                if(value >= 6)
-                    jsonValue = itemLoader.getBags().get(2);
             }
 
             item = new Item(jsonValue);
@@ -117,7 +65,7 @@ public class ItemCreator
         return item;
     }
     
-    public Item createShield(int mobRank)
+    public Item createDamagePotion(int mobRank)
     {
         int rank = mobRank - 1;
         Item item = null;
@@ -126,14 +74,14 @@ public class ItemCreator
         {
             if(rank >= 0 && rank < 2)
             {
-                jsonValue = itemLoader.getShields().get(rank);
+                jsonValue = itemLoader.getDamagePotions().get(rank);
             }
             else
             {
                 int value = random.nextInt(9) + 1;
 
                 if(value >= 6)
-                    jsonValue = itemLoader.getShields().get(2);
+                    jsonValue = itemLoader.getDamagePotions().get(2);
             }
 
             item = new Item(jsonValue);
@@ -142,37 +90,28 @@ public class ItemCreator
         return item;
     }
     
-    public Item createRandomItem(int mobRank){
+    public Item createAttackSpeedPotion(int mobRank)
+    {
+        int rank = mobRank - 1;
         Item item = null;
         
-        if(item == null)
-            item = createHealPotion(mobRank);
-        
-        if(item == null)
-            item = createShield(mobRank);
-        
-        if(item == null)
-            item = createBag(mobRank);
-        
-        return item;
-    }
-    
-    public ArrayList<Item> createPackOfItems(int mobRank){
-        ArrayList<Item> result = new ArrayList<Item>();
-        
-        for(int i=0 ; i<2 ; i++){
-            Item item = null;
-            
-            item = createHealPotion(mobRank);
-            if(item != null) result.add(item);
-            
-            item = createShield(mobRank);
-            if(item != null) result.add(item);
-            
-            item = createBag(mobRank);
-            if(item != null) result.add(item);
+        if(isDrop())
+        {
+            if(rank >= 0 && rank < 2)
+            {
+                jsonValue = itemLoader.getAttackSpeedPotions().get(rank);
+            }
+            else
+            {
+                int value = random.nextInt(9) + 1;
+
+                if(value >= 6)
+                    jsonValue = itemLoader.getAttackSpeedPotions().get(2);
+            }
+
+            item = new Item(jsonValue);
         }
         
-        return result;
+        return item;
     }
 }

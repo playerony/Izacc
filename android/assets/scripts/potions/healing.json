@@ -52,10 +52,8 @@
 		bonus: 10,
 		buy: 200,
 		sell: 100,
-		time: 15,
 		disable: true,
 		packable: true,
-		isPermanent: false,
 		itemType: "potion"
 	}
 ]

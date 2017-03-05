@@ -5,6 +5,8 @@
  */
 package com.izacc.equipment;
 
+import com.izacc.equipment.generate.Creator;
+import com.izacc.equipment.generate.ItemCreator;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,8 +17,7 @@ import java.util.Random;
 public class Equipment 
 {
     private ItemCreator itemCreator;
-    private ArrayList<Item> bagpack; 
-    //private static final int capacity = 25;
+    private ArrayList<Item> bagpack;
     
     public Equipment()
     {
@@ -27,8 +28,6 @@ public class Equipment
     {
         bagpack = new ArrayList<Item>();
         itemCreator = new ItemCreator();
-        
-        Random r = new Random();
     }
 
     public void addItem(Item item)
@@ -57,10 +56,5 @@ public class Equipment
     public ArrayList<Item> getBagpack()
     {
         return bagpack;
-    }
-    
-    public void addPotion()
-    {
-        
     }
 }

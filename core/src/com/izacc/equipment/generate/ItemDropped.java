@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.izacc.equipment;
+package com.izacc.equipment.generate;
 
+import com.izacc.equipment.Item;
 import com.izacc.utility.Entity;
 
 /**

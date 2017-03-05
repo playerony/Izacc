@@ -2,12 +2,13 @@ package com.izacc.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.izacc.character.Character;
 import com.izacc.enemy.Enemy;
 import com.izacc.equipment.Equipment;
 import com.izacc.equipment.Item;
-import com.izacc.equipment.ItemCreator;
-import com.izacc.equipment.ItemDropped;
+import com.izacc.equipment.generate.ItemCreator;
+import com.izacc.equipment.generate.ItemDropped;
 import com.izacc.game.Izacc;
 import com.izacc.utility.Entity;
 import java.util.ArrayList;
@@ -66,10 +67,10 @@ public class GameScreen extends AbstractScreen
                 for(Item item : equipment.getBagpack())
                     if(item.disable && item.time > 0){
                         item.time--;
-                    }/*else{
+                    }else{
                         equipment.getBagpack().remove(item);
                         break;
-                    }*/
+                    }
                 
                 timeState = 0.0f;
         }
@@ -81,8 +82,15 @@ public class GameScreen extends AbstractScreen
     private void renderDroppedItems(float delta)
     {
         batch.begin();
-        for(ItemDropped item : itemDropped)
+        
+        for(ItemDropped item : itemDropped){
+            String str = "Efekt: " + item.getItem().effectType.toString();
+            
             batch.draw(item.getItem().getIcon(), item.getEntity().getX(), item.getEntity().getY());
+            font.setColor(Color.BLACK);
+            font.draw(batch, str.toString(), item.getEntity().getX() - 25, item.getEntity().getY() + 40);
+        }
+        
         batch.end();
     }
     
@@ -90,10 +98,22 @@ public class GameScreen extends AbstractScreen
     {
         Random random = new Random();
         
+        int x = 0;
+        int y = 0;
+        int size = 75;
+        
         for(int i=0 ; i<50 ; i++)
         {
-            Enemy ene = new Enemy(random.nextInt(3) + 1, random.nextInt(Izacc.SCREEN_WIDTH), random.nextInt(izacc.SCREEN_WIDTH));
+            Enemy ene = new Enemy(random.nextInt(3) + 1, 100 + x * size, 100 + y * size);
             enemy.add(ene);
+            
+            x++;
+            
+            if(x %10==0)
+            {
+                x = 0;
+                y++;
+            }
         }
     }
     
@@ -101,8 +121,14 @@ public class GameScreen extends AbstractScreen
     {
         int level = 0;
         equipmentBatch.begin();
+        font.setColor(Color.WHITE);
         
         for(Item item : equipment.getBagpack()){
+            if(item.isPermanent){
+                 font.setColor(Color.RED);
+            }else
+                font.setColor(Color.WHITE);
+            
             if(item.disable){
                 String text = item.name + " " + item.time + " " + item.bonus;
                 font.draw(equipmentBatch, text, 5, izacc.SCREEN_HEIGHT - 5 - level * 15);

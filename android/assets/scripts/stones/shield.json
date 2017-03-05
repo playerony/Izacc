@@ -10,6 +10,7 @@
 		sell: 5,
 		disable: true,
 		packable: true,
+		isPermanent: false,
 		itemType: "stone"
 	},
 			
@@ -24,6 +25,7 @@
 		sell: 50,
 		disable: true,
 		packable: true,
+		isPermanent: false,
 		itemType: "stone"
 	},
 	

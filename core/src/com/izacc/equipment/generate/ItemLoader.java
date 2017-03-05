@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.izacc.equipment;
+package com.izacc.equipment.generate;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
@@ -35,6 +35,16 @@ public class ItemLoader
     public JsonValue getMoveSpeedPotions()
     {
         return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_POTION_PATH + "move_speed.json"));
+    }
+    
+    public JsonValue getAttackSpeedPotions()
+    {
+        return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_POTION_PATH + "attack_speed.json"));
+    }
+    
+    public JsonValue getDamagePotions()
+    {
+        return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_POTION_PATH + "damage.json"));
     }
     
     public JsonValue getShields()
