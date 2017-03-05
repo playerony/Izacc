@@ -2,8 +2,6 @@ package com.izacc.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.izacc.character.Character;
 import com.izacc.enemy.Enemy;
 import com.izacc.equipment.Equipment;
@@ -28,6 +26,8 @@ public class GameScreen extends AbstractScreen
     
     private boolean showEquipment;
     private boolean clicked;
+    
+    private float timeState = 0.0f;
     
     public GameScreen(Izacc izacc)
     {
@@ -61,6 +61,19 @@ public class GameScreen extends AbstractScreen
         for(Enemy e : enemy)
             e.render(delta);
         
+        timeState+=Gdx.graphics.getDeltaTime();
+        if(timeState>=1.0f){
+                for(Item item : equipment.getBagpack())
+                    if(item.disable && item.time > 0){
+                        item.time--;
+                    }/*else{
+                        equipment.getBagpack().remove(item);
+                        break;
+                    }*/
+                
+                timeState = 0.0f;
+        }
+        
         renderDroppedItems(delta);
         renderEquipment(delta);
     }
@@ -86,43 +99,22 @@ public class GameScreen extends AbstractScreen
     
     private void renderEquipment(float delta)
     {
-        if(showEquipment)
-        {
-            shapeRenderer.setColor(Color.BROWN);
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.rect(100, 100, 400, 300);
-            shapeRenderer.end();
-           
-            int size=50;
-            int x = 0, y = 0;
-            for(int i=0 ; i<25 ; i++)
-            {
-                if(equipment.getBagpack().get(i) != null)
-                {
-                    equipmentBatch.begin();
-                    equipmentBatch.draw(equipment.getBagpack().get(i).getIcon(), 110 + (x * size + 10 * x), 110 + (y * size + 10 * y));
-                    if(equipment.getBagpack().get(i).count > 1)
-                    {
-                        font.draw(equipmentBatch, String.valueOf(equipment.getBagpack().get(i).count), 130 + (x * size + 10 * x) + 20, 120 + (y * size + 10 * y));
-                    }
-                    equipmentBatch.end();
-                }
-                else
-                {
-                    shapeRenderer.setColor(Color.WHITE);
-                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                    shapeRenderer.rect(110 + (x * size + 10 * x), 110 + (y * size + 10 * y), size, size);
-                    shapeRenderer.end();
-                }
-                
-                x++;
-                if(x%5==0)
-                {
-                    x = 0;
-                    y++;
-                }
+        int level = 0;
+        equipmentBatch.begin();
+        
+        for(Item item : equipment.getBagpack()){
+            if(item.disable){
+                String text = item.name + " " + item.time + " " + item.bonus;
+                font.draw(equipmentBatch, text, 5, izacc.SCREEN_HEIGHT - 5 - level * 15);
+            }else {
+                String text = item.name + " " + item.bonus;
+                font.draw(equipmentBatch, text, 5, izacc.SCREEN_HEIGHT - 5 - level * 15);
             }
+            
+            level++;
         }
+        
+        equipmentBatch.end();
     }
 
     private void update(){
@@ -135,7 +127,7 @@ public class GameScreen extends AbstractScreen
             {
                 if(isColision(en2, en1))
                 {
-                    Item item = itemCreator.createHealPotion(en2.getMobRank());
+                    Item item = itemCreator.createRandomItem(en2.getMobRank());
             
                     if(item != null)
                     {

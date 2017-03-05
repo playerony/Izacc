@@ -6,6 +6,7 @@
 package com.izacc.equipment;
 
 import com.badlogic.gdx.utils.JsonValue;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -33,7 +34,7 @@ public class ItemCreator
     {
         int value = random.nextInt(9) + 1;
         
-        if(value <= 5)
+        if(value <= 4)
             return false;
         
         return true;
@@ -66,11 +67,112 @@ public class ItemCreator
         return item;
     }
     
-    public Item createSpeedPotion()
+    public Item createBag(int mobRank)
     {
-        JsonValue jsonValue = itemLoader.getSpeedPotions().get(1);
-        Item item = new Item(jsonValue);
+        int rank = mobRank - 1;
+        Item item = null;
+        
+        if(isDrop())
+        {
+            if(rank >= 0 && rank < 2)
+            {
+                jsonValue = itemLoader.getBags().get(rank);
+            }
+            else
+            {
+                int value = random.nextInt(9) + 1;
+
+                if(value >= 6)
+                    jsonValue = itemLoader.getBags().get(2);
+            }
+
+            item = new Item(jsonValue);
+        }
         
         return item;
+    }
+    
+    public Item createMoveSpeedPotion(int mobRank)
+    {
+        int rank = mobRank - 1;
+        Item item = null;
+        
+        if(isDrop())
+        {
+            if(rank >= 0 && rank < 2)
+            {
+                jsonValue = itemLoader.getMoveSpeedPotions().get(rank);
+            }
+            else
+            {
+                int value = random.nextInt(9) + 1;
+
+                if(value >= 6)
+                    jsonValue = itemLoader.getMoveSpeedPotions().get(2);
+            }
+
+            item = new Item(jsonValue);
+        }
+        
+        return item;
+    }
+    
+    public Item createShield(int mobRank)
+    {
+        int rank = mobRank - 1;
+        Item item = null;
+        
+        if(isDrop())
+        {
+            if(rank >= 0 && rank < 2)
+            {
+                jsonValue = itemLoader.getShields().get(rank);
+            }
+            else
+            {
+                int value = random.nextInt(9) + 1;
+
+                if(value >= 6)
+                    jsonValue = itemLoader.getShields().get(2);
+            }
+
+            item = new Item(jsonValue);
+        }
+        
+        return item;
+    }
+    
+    public Item createRandomItem(int mobRank){
+        Item item = null;
+        
+        if(item == null)
+            item = createHealPotion(mobRank);
+        
+        if(item == null)
+            item = createShield(mobRank);
+        
+        if(item == null)
+            item = createBag(mobRank);
+        
+        return item;
+    }
+    
+    public ArrayList<Item> createPackOfItems(int mobRank){
+        ArrayList<Item> result = new ArrayList<Item>();
+        
+        for(int i=0 ; i<2 ; i++){
+            Item item = null;
+            
+            item = createHealPotion(mobRank);
+            if(item != null) result.add(item);
+            
+            item = createShield(mobRank);
+            if(item != null) result.add(item);
+            
+            item = createBag(mobRank);
+            if(item != null) result.add(item);
+        }
+        
+        return result;
     }
 }

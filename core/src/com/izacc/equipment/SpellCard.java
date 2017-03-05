@@ -17,5 +17,4 @@ public class SpellCard extends Item
     {
         super(json);
     }
-    
 }

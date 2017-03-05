@@ -18,8 +18,15 @@ public class Path
     
     // Path to icons
     public static final String ICON_PATH = BASE_PATH + "icons/";
+    public static final String ICON_POTION_PATH = ICON_PATH + "/potions/";
+    public static final String ICON_STONE_PATH = ICON_PATH + "/stones/";
+    public static final String ICON_BAG_PATH = ICON_PATH + "/bags/";
+    public static final String ICON_SPELL_PATH = ICON_PATH + "/spells/";
     
     // Path to *.json scripts
     public static final String SCRIPT_PATH = BASE_PATH + "scripts";
     public static final String SCRIPT_POTION_PATH = SCRIPT_PATH + "/potions/";
+    public static final String SCRIPT_STONE_PATH = SCRIPT_PATH + "/stones/";
+    public static final String SCRIPT_BAG_PATH = SCRIPT_PATH + "/bags/";
+    public static final String SCRIPT_SPELL_PATH = SCRIPT_PATH + "/spells/";
 }

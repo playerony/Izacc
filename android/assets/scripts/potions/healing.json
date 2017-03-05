@@ -7,6 +7,7 @@
 		bonus: 10,
 		buy: 15,
 		sell: 5,
+		time: 15,
 		disable: true,
 		packable: true,
 		isPermanent: false,
@@ -21,6 +22,7 @@
 		bonus: 20,
 		buy: 30,
 		sell: 15,
+		time: 15,
 		disable: true,
 		packable: true,
 		isPermanent: false,
@@ -35,6 +37,7 @@
 		bonus: 50,
 		buy: 100,
 		sell: 50,
+		time: 15,
 		disable: true,
 		packable: true,
 		isPermanent: false,
@@ -44,13 +47,15 @@
 	{
 		name: "Elixir of Life",
 		description: "Adding 10 hitpoints",
-		file: "flame.jpg",
+		file: "heal_potion_4.png",
 		type: "max_hp",
 		bonus: 10,
 		buy: 200,
 		sell: 100,
+		time: 15,
 		disable: true,
 		packable: true,
+		isPermanent: false,
 		itemType: "potion"
 	}
 ]

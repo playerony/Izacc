@@ -10,7 +10,6 @@
 		sell: 5,
 		disable: true,
 		packable: true,
-		isPermanent: true,
 		itemType: "potion"
 	},
 			
@@ -25,7 +24,6 @@
 		sell: 50,
 		disable: true,
 		packable: true,
-		isPermanent: true,
 		itemType: "potion"
 	},
 	
@@ -39,7 +37,6 @@
 		sell: 250,
 		disable: true,
 		packable: true,
-		isPermanent: true,
 		itemType: "potion"
 	}
 ]

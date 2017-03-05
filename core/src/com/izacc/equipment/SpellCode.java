@@ -9,10 +9,7 @@ package com.izacc.equipment;
  *
  * @author pawel_000
  */
-public enum ItemType
+public enum SpellCode
 {
-    potion,
-    stone,
-    bag,
-    spell
+    
 }

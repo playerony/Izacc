@@ -32,8 +32,18 @@ public class ItemLoader
         return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_POTION_PATH + "healing.json"));
     }
     
-    public JsonValue getSpeedPotions()
+    public JsonValue getMoveSpeedPotions()
     {
-        return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_POTION_PATH + "speed.json"));
+        return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_POTION_PATH + "move_speed.json"));
+    }
+    
+    public JsonValue getShields()
+    {
+        return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_STONE_PATH + "shield.json"));
+    }
+    
+    public JsonValue getBags()
+    {
+        return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_BAG_PATH + "gold.json"));
     }
 }

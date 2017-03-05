@@ -46,7 +46,7 @@ public class Item implements Serializable
         this.packable = json.has("packable") ? json.getBoolean("packable") : true;
         this.isPermanent = json.has("isPermanent") ? json.getBoolean("isPermanent") : true;
         
-        this.bonus = json.has("bonus") ? json.getInt("bonus") : 0.0f;
+        this.bonus = json.has("bonus") ? json.getFloat("bonus") : 0.0f;
         this.time = json.has("time") ? json.getInt("time") : 0;
         this.buy = json.has("buy") ? json.getInt("buy") : 0;
         this.sell = json.has("sell") ? json.getInt("sell") : 0;
@@ -57,6 +57,6 @@ public class Item implements Serializable
     
     public Texture getIcon()
     {
-        return new Texture(Path.ICON_PATH + file);
+        return new Texture(Path.ICON_PATH + itemType.toString() + "s" + "/" + file);
     }
 }

@@ -1,0 +1,41 @@
+[
+	{
+		name: "Stone 1",
+		description: "Increase your attack speed for 1 minute",
+		file: "shield_1.png",
+		type: "shield",
+		bonus: 0.1,
+		time: 60,
+		buy: 15,
+		sell: 5,
+		disable: true,
+		packable: true,
+		itemType: "stone"
+	},
+			
+	{
+		name: "Stone 2",
+		description: "Increase your attack speed for 3 minutes",
+		file: "shield_2.png",
+		type: "shield",
+		bonus: 0.3,
+		time: 180,
+		buy: 100,
+		sell: 50,
+		disable: true,
+		packable: true,
+		itemType: "stone"
+	},
+	
+	{
+		name: "Stone 3",
+		description: "Permanent increase your attack speed",
+		file: "shield_3.png",
+		type: "max_shield",
+		bonus: 0.2,
+		buy: 500,
+		sell: 250,
+		packable: true,
+		itemType: "stone"
+	}
+]

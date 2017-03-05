@@ -1,0 +1,42 @@
+[
+	{
+		name: "Essence of Power",
+		description: "Increase your damage for 1 minute",
+		file: "4.png",
+		type: "attack_dmg",
+		bonus: 0.1,
+		time: 60,
+		buy: 15,
+		sell: 5,
+		disable: true,
+		packable: true,
+		itemType: "potion"
+	},
+			
+	{
+		name: "Elixir of Attack Speed",
+		description: "Increase your attack speed for 3 minutes",
+		file: "5.png",
+		type: "attack_dmg",
+		bonus: 0.3,
+		time: 180,
+		buy: 100,
+		sell: 50,
+		disable: true,
+		packable: true,
+		itemType: "potion"
+	},
+	
+	{
+		name: "Looks dangerous !",
+		description: "Permanent increase your attack speed",
+		file: "6.png",
+		type: "max_attack_dmg",
+		bonus: 0.2,
+		buy: 500,
+		sell: 250,
+		disable: true,
+		packable: true,
+		itemType: "potion"
+	}
+]

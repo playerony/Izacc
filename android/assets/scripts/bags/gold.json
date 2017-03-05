@@ -1,0 +1,31 @@
+[
+	{
+		name: "A lether bag",
+		description: "Some piece of cash",
+		file: "bag_1.png",
+		type: "gold",
+		bonus: 10,
+		packable: true,
+		itemType: "bag"
+	},
+			
+	{
+		name: "Bigger lether bag",
+		description: "Some piece of cash ",
+		file: "bag_2.png",
+		type: "gold",
+		bonus: 25,
+		packable: true,
+		itemType: "bag"
+	},
+	
+	{
+		name: "Bank was robbery ?!",
+		description: "there is so much gold",
+		file: "bag_3.png",
+		type: "gold",
+		bonus: 50,
+		packable: true,
+		itemType: "bag"
+	}
+]

@@ -16,7 +16,7 @@ public class Equipment
 {
     private ItemCreator itemCreator;
     private ArrayList<Item> bagpack; 
-    private static final int capacity = 25;
+    //private static final int capacity = 25;
     
     public Equipment()
     {
@@ -25,11 +25,8 @@ public class Equipment
     
     public void init()
     {
-        bagpack = new ArrayList<Item>(capacity);
+        bagpack = new ArrayList<Item>();
         itemCreator = new ItemCreator();
-        
-        for(int i=0 ; i<capacity ; i++)
-            bagpack.add(null);
         
         Random r = new Random();
     }
@@ -41,23 +38,19 @@ public class Equipment
             boolean isAdd = false;
             
             for(Item it : bagpack)
-                if(it != null && item.name.equals(it.name) && it.packable)
+                if(item.name.equals(it.name) && it.packable)
                 {
                     it.count++;
+                    if(it.disable)
+                        it.time += item.time;
+                    
                     isAdd = true;
                     
                     break;
                 }
 
             if(!isAdd)
-                for(int i=0 ; i<capacity ; i++)
-                {
-                    if(bagpack.get(i) == null)
-                    {
-                        bagpack.set(i, item);
-                        break;
-                    }
-                }
+                bagpack.add(item);
         }
     }
 
