@@ -5,10 +5,7 @@
  */
 package com.izacc.equipment.generate;
 
-import com.izacc.equipment.generate.ItemLoader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.izacc.equipment.Item;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -26,8 +23,9 @@ public abstract class Creator
         init();
     }
     
-    public void init()
+    private void init()
     {
+        jsonValue = null;
         itemLoader = new ItemLoader();
         random = new Random();
     }

@@ -1,0 +1,15 @@
+[
+	{
+		name: "Scroll 1",
+		description: "Scroll",
+		file: "scroll_1.png",
+		type: "spell",
+		bonus: 10,
+		time: 5,
+		buy: 100,
+		sell: 50,
+		id: 1,
+		disable: true,
+		itemType: "spell"
+	}
+]

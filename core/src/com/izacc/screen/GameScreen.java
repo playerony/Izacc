@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.izacc.character.Character;
+import com.izacc.character.Player;
 import com.izacc.enemy.Enemy;
+import com.izacc.equipment.EffectType;
 import com.izacc.equipment.Equipment;
 import com.izacc.equipment.Item;
+import com.izacc.equipment.ItemType;
 import com.izacc.equipment.generate.ItemCreator;
 import com.izacc.equipment.generate.ItemDropped;
 import com.izacc.game.Izacc;
@@ -68,7 +71,12 @@ public class GameScreen extends AbstractScreen
                     if(item.disable && item.time > 0){
                         item.time--;
                     }else{
+                        if(item.effectType == EffectType.spell && item.itemType == ItemType.spell){
+                            character.getPlayer().setSpell(Player.Spell.SPELL_1);
+                        }
+                        
                         equipment.getBagpack().remove(item);
+                        
                         break;
                     }
                 
@@ -88,7 +96,7 @@ public class GameScreen extends AbstractScreen
             
             batch.draw(item.getItem().getIcon(), item.getEntity().getX(), item.getEntity().getY());
             font.setColor(Color.BLACK);
-            font.draw(batch, str.toString(), item.getEntity().getX() - 25, item.getEntity().getY() + 40);
+            font.draw(batch, str.toString(), item.getEntity().getX() - 25, item.getEntity().getY() + 50);
         }
         
         batch.end();
@@ -129,7 +137,11 @@ public class GameScreen extends AbstractScreen
             }else
                 font.setColor(Color.WHITE);
             
-            if(item.disable){
+            if(item.effectType == EffectType.spell && item.itemType == ItemType.spell){
+                font.setColor(Color.GREEN);
+            }
+            
+            if(item.disable || item.effectType == EffectType.spell){
                 String text = item.name + " " + item.time + " " + item.bonus;
                 font.draw(equipmentBatch, text, 5, izacc.SCREEN_HEIGHT - 5 - level * 15);
             }else {
@@ -171,6 +183,10 @@ public class GameScreen extends AbstractScreen
         {
             if(isColision(item.getEntity(), character.getPlayer()))
             {
+                if(item.getItem().effectType == EffectType.spell && item.getItem().itemType == ItemType.spell){
+                    character.getPlayer().setSpell(Player.Spell.SPELL_2);
+                }
+                
                 equipment.addItem(item.getItem());
                 itemDropped.remove(item);
                 

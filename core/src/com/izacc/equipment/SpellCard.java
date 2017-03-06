@@ -13,8 +13,12 @@ import com.badlogic.gdx.utils.JsonValue;
  */
 public class SpellCard extends Item
 {
+    int id;
+    
     public SpellCard(JsonValue json) 
     {
         super(json);
+        
+        this.id = json.has("id") ? json.getInt("id") : 0;
     }
 }

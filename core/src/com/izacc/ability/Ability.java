@@ -6,12 +6,15 @@
 package com.izacc.ability;
 
 import com.izacc.utility.Entity;
+import java.util.ArrayList;
 
 /**
  *
  * @author pawel_000
  */
 public abstract class Ability extends Entity{
+    protected ArrayList<Bullet> bullets;
+    
     protected float attackSpeed;
     
     protected boolean actived = false;
@@ -22,18 +25,15 @@ public abstract class Ability extends Entity{
     public Ability(int direction, float x, float y){
         super(x, y);
         
+        bullets = new ArrayList<Bullet>();
         this.direction = Direction.values()[direction];
-        init();
     }
     
-    private void init() {
+    public void init() {
         initSpeed();
-        attack();
     }
     
     public abstract void initSpeed();
-    
-    public abstract void attack();
     
     public abstract void update();
     
@@ -52,5 +52,7 @@ public abstract class Ability extends Entity{
         this.actived = actived;
     }
     
-    
+    public ArrayList<Bullet> getBullets(){
+        return bullets;
+    }
 }

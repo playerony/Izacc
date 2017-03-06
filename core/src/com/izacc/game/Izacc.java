@@ -13,7 +13,8 @@ public class Izacc extends Game
     private boolean paused = false;
 
     @Override
-    public void create() {
+    public void create() 
+    {
         this.setScreen(new SplashScreen(this));
     }
 
@@ -22,11 +23,13 @@ public class Izacc extends Game
     * Getters and setters
     */
 
-    public boolean isPaused() {
+    public boolean isPaused() 
+    {
         return paused;
     }
 
-    public void setPause(boolean paused) {
+    public void setPause(boolean paused) 
+    {
         this.paused = paused;
     }
 }

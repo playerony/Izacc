@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 /**
  * Created by pawel_000 on 2017-02-25.
  */
-public class Entity{
+public class Entity
+{
     protected float x;
     protected float y;
     protected float xVel;

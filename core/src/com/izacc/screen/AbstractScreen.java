@@ -14,7 +14,8 @@ import com.izacc.game.Izacc;
 /**
  * Created by pawel_000 on 2017-02-25.
  */
-public abstract class AbstractScreen implements Screen {
+public abstract class AbstractScreen implements Screen 
+{
     public OrthographicCamera camera;
     public SpriteBatch batch, equipmentBatch;
     public Izacc izacc;
@@ -22,7 +23,8 @@ public abstract class AbstractScreen implements Screen {
     public ShapeRenderer shapeRenderer;
     public BitmapFont font;
 
-    public AbstractScreen(Izacc izacc){
+    public AbstractScreen(Izacc izacc)
+    {
         this.izacc = izacc;
         createCamera();
         stage = new Stage(new StretchViewport(Izacc.SCREEN_WIDTH, Izacc.SCREEN_HEIGHT, camera));
@@ -37,51 +39,60 @@ public abstract class AbstractScreen implements Screen {
 
     protected abstract void init();
 
-    private void createCamera() {
+    private void createCamera() 
+    {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Izacc.SCREEN_WIDTH, Izacc.SCREEN_HEIGHT);
         camera.update();
     }
 
     @Override
-    public void show() {
+    public void show() 
+    {
 
     }
 
     @Override
-    public void render(float delta) {
+    public void render(float delta) 
+    {
         clearScreen();
         camera.update();
         batch.setProjectionMatrix(camera.combined);
     }
 
-    private void clearScreen() {
+    private void clearScreen() 
+    {
         Gdx.gl.glClearColor(0.6f, 0.8f, 1.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     @Override
-    public void resume() {
+    public void resume() 
+    {
         izacc.setPause(false);
     }
 
     @Override
-    public void pause() {
+    public void pause() 
+    {
         izacc.setPause(true);
     }
 
     @Override
-    public void dispose() {
+    public void dispose() 
+    {
         izacc.dispose();
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void resize(int width, int height) 
+    {
 
     }
 
     @Override
-    public void hide() {
+    public void hide() 
+    {
 
     }
 }

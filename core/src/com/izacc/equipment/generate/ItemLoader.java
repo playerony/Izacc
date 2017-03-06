@@ -56,4 +56,9 @@ public class ItemLoader
     {
         return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_BAG_PATH + "gold.json"));
     }
+    
+    public JsonValue getSpells()
+    {
+        return jsonReader.parse(Gdx.files.internal(Path.SCRIPT_SPELL_PATH + "spell.json"));
+    }
 }

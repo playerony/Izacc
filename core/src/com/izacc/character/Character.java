@@ -1,10 +1,13 @@
 package com.izacc.character;
 
+import com.izacc.ability.Ability;
+
 
 /**
  * Created by pawel_000 on 2017-02-25.
  */
-public class Character {
+public class Character 
+{
     private static final int START_X = 200;
     private static final int START_Y = 200;
 
@@ -12,17 +15,21 @@ public class Character {
     private Type type;
     private Player player;
 
-    public Character(Type type){
+    public Character(Type type)
+    {
         this.type = type;
         init();
     }
 
-    private void init(){
+    private void init()
+    {
         initPlayer();
     }
 
-    private void initPlayer(){
-        switch (type){
+    private void initPlayer()
+    {
+        switch (type)
+        {
             case MAGE:
                 player = new Mage(START_X, START_Y);
                 break;
@@ -37,13 +44,17 @@ public class Character {
         }
     }
 
-    public void update(){
+    public void update()
+    {
         player.update();
     }
 
-    public void render(float delta){
-        for(Bullet a : player.getAbilities())
+    public void render(float delta)
+    {
+        for(Ability a : player.getAbilities())
+        {
             a.render(delta);
+        }
         
         player.render(delta);
     }
@@ -53,11 +64,13 @@ public class Character {
      * Getters
      */
 
-    public Type getType() {
+    public Type getType() 
+    {
         return type;
     }
 
-    public Player getPlayer() {
+    public Player getPlayer() 
+    {
         return player;
     }
 }

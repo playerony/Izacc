@@ -21,5 +21,6 @@ public enum EffectType
     max_attack_speed,
     shield,
     max_shield,
-    gold
+    gold,
+    spell
 }

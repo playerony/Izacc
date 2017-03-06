@@ -3,36 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.izacc.character;
+package com.izacc.ability;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.izacc.utility.Entity;
+import com.izacc.game.Izacc;
 
 /**
  *
  * @author pawel_000
  */
-public class Bullet extends Entity{
-    private float attackSpeed = 5.2f;
-    
-    public enum Direction { LEFT, RIGHT, UP, DOWN };
-    private Direction direction;
-    
+public class Bullet extends Ability
+{
     protected boolean actived = false;
-
+    
     public Bullet(int direction, float x, float y) {
-        super(x, y);
+        super(direction, x, y);
         
-        this.direction = Direction.values()[direction];
         init();
     }
-    
-    private void init() {
-        initSpeed();
+
+    public Bullet(int direction, float x, float y, float xVel, float yVel) {
+        super(direction, x, y);
+        
+        this.xVel = xVel;
+        this.yVel = yVel;
     }
     
-    private void initSpeed() {
+    @Override
+    public void initSpeed() {
+        attackSpeed = 5.2f;
+        
         switch(direction){
             case LEFT:
                 xVel = -attackSpeed;
@@ -56,23 +57,17 @@ public class Bullet extends Entity{
         }
     }
     
+    @Override
     public void update() {
         x+=xVel;
         y+=yVel;
     }
 
+    @Override
     public void render(float delta) {
         shapeRenderer.setColor(Color.WHITE);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.circle(x, y, 10);
         shapeRenderer.end();
-    }
-    
-    public boolean isActived() {
-        return actived;
-    }
-
-    public void setActived(boolean actived) {
-        this.actived = actived;
     }
 }

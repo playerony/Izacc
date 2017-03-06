@@ -3,6 +3,10 @@ package com.izacc.character;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.izacc.ability.Ability;
+import com.izacc.ability.Bullet;
+import com.izacc.ability.SunShot;
+import com.izacc.game.Izacc;
 import com.izacc.utility.Entity;
 import java.util.ArrayList;
 
@@ -16,11 +20,13 @@ public abstract class Player extends Entity {
     private static boolean clicked = true;
 
     protected enum Direction { LEFT, RIGHT, UP, DOWN, STAY };
+    public enum Spell {SPELL_1, SPELL_2};
     
     private Direction textureDirection;
     private Direction direction;
+    private Spell spell;
     
-    protected ArrayList<Bullet> bullets;
+    protected ArrayList<Ability> bullets;
 
     public Player(float x, float y) {
         super(x, y);
@@ -33,18 +39,43 @@ public abstract class Player extends Entity {
     public abstract void attack(Entity entity);
     
     private void init(){
+        spell = Spell.SPELL_1;
         direction = Direction.STAY;
         textureDirection = Direction.RIGHT;
         
-        bullets = new ArrayList<Bullet>();
+        bullets = new ArrayList<Ability>();
     }
 
     public void update(){
         inputHandler();
         move();
         
-        for(Bullet a : bullets)
+        System.out.println(bullets.size());
+        
+        for(Ability a : bullets){
             a.update();
+            
+            if(a.getX() > Izacc.SCREEN_WIDTH)
+            {
+                bullets.remove(a);
+                break;
+            }
+            else if(a.getX() < 0)
+            {
+                bullets.remove(a);
+                break;
+            }
+            else if(a.getY()> Izacc.SCREEN_HEIGHT)
+            {
+                bullets.remove(a);
+                break;
+            }
+            else if(a.getY() < 0)
+            {
+                bullets.remove(a);
+                break;
+            }
+        }
     }
 
     private void inputHandler() {
@@ -72,14 +103,30 @@ public abstract class Player extends Entity {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && clicked){
             clicked = false;
             
-            bullets.add(new Bullet(textureDirection.ordinal(), x, y));
-        }else if(!Gdx.input.isKeyPressed(Input.Keys.SPACE) && !clicked){
+            switch(spell)
+            {
+                case SPELL_2:
+                    Ability a = new SunShot(textureDirection.ordinal(), x, y);
+
+                    for(Bullet b : a.getBullets())
+                        bullets.add(b);
+                    break;
+                    
+                default:
+                    bullets.add(new Bullet(textureDirection.ordinal(), x, y));
+                    break;
+            }
+        }
+        else if(!Gdx.input.isKeyPressed(Input.Keys.SPACE) && !clicked)
+        {
             clicked = true;
         }
     }
 
-    private void move(){
-        switch (direction){
+    private void move()
+    {
+        switch (direction)
+        {
             case LEFT:
                 xVel = -Math.abs(speed);
                 break;
@@ -107,7 +154,8 @@ public abstract class Player extends Entity {
         yVel*=friction;
     }
 
-    public void addGold(float gold){
+    public void addGold(float gold)
+    {
         this.gold += gold;
     }
 
@@ -115,7 +163,20 @@ public abstract class Player extends Entity {
      * Getters and Setters
      */
 
-    public ArrayList<Bullet> getAbilities() {
+    public ArrayList<Ability> getAbilities() 
+    {
         return bullets;
     }
+
+    public Spell getSpell()
+    {
+        return spell;
+    }
+
+    public void setSpell(Spell spell)
+    {
+        this.spell = spell;
+    }
+    
+    
 }

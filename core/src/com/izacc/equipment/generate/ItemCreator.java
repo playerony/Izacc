@@ -18,21 +18,26 @@ public class ItemCreator
     private PotionCreator potionCreator;
     private StoneCreator stoneCreator;
     private BagCreator bagCreator;
+    private SpellCreator spellCreator;
     private Random random;
     
-    public ItemCreator(){
+    public ItemCreator()
+    {
         potionCreator = new PotionCreator();
         stoneCreator = new StoneCreator();
         bagCreator = new BagCreator();
+        spellCreator = new SpellCreator();
         
         random = new Random();
     }
     
-    public Item createRandomItem(int mobRank){
+    public Item createRandomItem(int mobRank)
+    {
         Item item = null;
-        int rand = random.nextInt(6);
+        int rand = random.nextInt(7);
         
-        switch(rand){
+        switch(rand)
+        {
             case 0:
                 item = potionCreator.createDamagePotion(mobRank);
                 break;
@@ -52,6 +57,10 @@ public class ItemCreator
             case 4:
                 item = potionCreator.createAttackSpeedPotion(mobRank);
                 break;
+                
+            case 5:
+                item = spellCreator.createSpell(mobRank);
+                break;
                     
             default:
                 item = bagCreator.createBag(mobRank);
@@ -61,10 +70,12 @@ public class ItemCreator
         return item;
     }
     
-    public ArrayList<Item> createPackOfItems(int mobRank){
+    public ArrayList<Item> createPackOfItems(int mobRank)
+    {
         ArrayList<Item> result = new ArrayList<Item>();
         
-        for(int i=0 ; i<2 ; i++){
+        for(int i=0 ; i<2 ; i++)
+        {
             Item item = null;
             
             item = potionCreator.createHealPotion(mobRank);

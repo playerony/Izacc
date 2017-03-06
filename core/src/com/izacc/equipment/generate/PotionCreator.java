@@ -34,7 +34,8 @@ public class PotionCreator extends Creator
                     jsonValue = itemLoader.getHealPotions().get(3);
             }
 
-            item = new Item(jsonValue);
+            if(jsonValue != null)
+                item = new Item(jsonValue);
         }
         
         return item;
@@ -59,7 +60,8 @@ public class PotionCreator extends Creator
                     jsonValue = itemLoader.getMoveSpeedPotions().get(2);
             }
 
-            item = new Item(jsonValue);
+            if(jsonValue != null)
+                item = new Item(jsonValue);
         }
         
         return item;
@@ -84,7 +86,8 @@ public class PotionCreator extends Creator
                     jsonValue = itemLoader.getDamagePotions().get(2);
             }
 
-            item = new Item(jsonValue);
+            if(jsonValue != null)
+                item = new Item(jsonValue);
         }
         
         return item;
@@ -109,7 +112,8 @@ public class PotionCreator extends Creator
                     jsonValue = itemLoader.getAttackSpeedPotions().get(2);
             }
 
-            item = new Item(jsonValue);
+            if(jsonValue != null)
+                item = new Item(jsonValue);
         }
         
         return item;

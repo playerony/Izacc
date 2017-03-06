@@ -5,10 +5,7 @@
  */
 package com.izacc.equipment;
 
-import com.izacc.equipment.generate.Creator;
-import com.izacc.equipment.generate.ItemCreator;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  *
@@ -16,7 +13,6 @@ import java.util.Random;
  */
 public class Equipment 
 {
-    private ItemCreator itemCreator;
     private ArrayList<Item> bagpack;
     
     public Equipment()
@@ -27,7 +23,6 @@ public class Equipment
     public void init()
     {
         bagpack = new ArrayList<Item>();
-        itemCreator = new ItemCreator();
     }
 
     public void addItem(Item item)
@@ -36,8 +31,8 @@ public class Equipment
         {
             boolean isAdd = false;
             
-            for(Item it : bagpack)
-                if(item.name.equals(it.name) && it.packable)
+            for(Item it : bagpack){
+                if(it.name.equals(item.name) && it.packable)
                 {
                     it.count++;
                     if(it.disable)
@@ -47,10 +42,15 @@ public class Equipment
                     
                     break;
                 }
+            }
 
             if(!isAdd)
                 bagpack.add(item);
         }
+    }
+    
+    public void removeItem(Item item){
+        bagpack.remove(item);
     }
 
     public ArrayList<Item> getBagpack()

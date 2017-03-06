@@ -32,7 +32,8 @@ public class StoneCreator extends Creator
                     jsonValue = itemLoader.getShields().get(2);
             }
 
-            item = new Item(jsonValue);
+            if(jsonValue != null)
+                item = new Item(jsonValue);
         }
         
         return item;

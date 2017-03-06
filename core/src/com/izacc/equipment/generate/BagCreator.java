@@ -32,7 +32,8 @@ public class BagCreator extends Creator
                     jsonValue = itemLoader.getBags().get(2);
             }
 
-            item = new Item(jsonValue);
+            if(jsonValue != null)
+                item = new Item(jsonValue);
         }
         
         return item;

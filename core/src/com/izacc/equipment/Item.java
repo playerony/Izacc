@@ -8,16 +8,13 @@ package com.izacc.equipment;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.JsonValue;
 import com.izacc.utility.Path;
-import java.io.Serializable;
 
 /**
  *
  * @author pawel_000
  */
-public class Item implements Serializable
-{
-    private static final long serialVersionUID = 1L;
-    
+public class Item
+{   
     public String name;
     public String file;
     public String description;

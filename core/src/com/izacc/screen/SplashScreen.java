@@ -8,27 +8,33 @@ import com.izacc.utility.Path;
 /**
  * Created by pawel_000 on 2017-02-25.
  */
-public class SplashScreen extends AbstractScreen {
+public class SplashScreen extends AbstractScreen 
+{
     private Texture texture;
 
-    public SplashScreen(Izacc gdxGame){
+    public SplashScreen(Izacc gdxGame)
+    {
         super(gdxGame);
 
-        Timer.schedule(new Timer.Task() {
+        Timer.schedule(new Timer.Task() 
+        {
             @Override
-            public void run() {
+            public void run() 
+            {
                 izacc.setScreen(new GameScreen(izacc));
             }
         }, 1);
     }
 
     @Override
-    protected void init() {
+    protected void init() 
+    {
         texture = new Texture(Path.IMAGE_PATH + "photo.jpg");
     }
 
     @Override
-    public void render(float delta) {
+    public void render(float delta) 
+    {
         super.render(delta);
 
         batch.begin();
