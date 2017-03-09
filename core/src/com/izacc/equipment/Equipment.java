@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Equipment 
 {
     private ArrayList<Item> bagpack;
+    private SpellCard spellCard = null;
     
     public Equipment()
     {
@@ -52,9 +53,28 @@ public class Equipment
     public void removeItem(Item item){
         bagpack.remove(item);
     }
+    
+    public void removeSpell(){
+        this.spellCard = null;
+    }
 
     public ArrayList<Item> getBagpack()
     {
         return bagpack;
     }
+
+    public SpellCard getSpellCard()
+    {
+        return spellCard;
+    }
+
+    public void setSpellCard(SpellCard spell)
+    {
+        if(spellCard != null && spellCard.name.equals(spell.name))
+            spellCard.time+=spell.time;
+        else
+            spellCard = spell;
+    }
+    
+    
 }

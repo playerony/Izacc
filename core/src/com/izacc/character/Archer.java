@@ -16,7 +16,7 @@ public class Archer extends Player {
     public void render(float delta) {
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.circle(x, y, 20);
+        shapeRenderer.circle(x, y, r);
         shapeRenderer.end();
     }
 

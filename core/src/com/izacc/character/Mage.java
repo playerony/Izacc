@@ -16,7 +16,7 @@ public class Mage extends Player {
     public void render(float delta) {
         shapeRenderer.setColor(Color.BLUE);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.circle(x, y, 20);
+        shapeRenderer.circle(x, y, r);
         shapeRenderer.end();
     }
 

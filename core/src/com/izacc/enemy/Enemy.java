@@ -16,14 +16,17 @@ import com.izacc.utility.Entity;
 public class Enemy extends Entity
 {
     private int mobRank;
-    private float col;
+    private float color;
+    
+    private float alpha = 1.0f;
     
     public Enemy(int mobRank, float x, float y)
     {
         super(x, y);
-        col = (mobRank * 80.0f) / 255.0f;
+        color = (mobRank * 80.0f) / 255.0f;
         
         this.mobRank = mobRank;
+        this.r = 20.0f;
     }
 
     public int getMobRank()
@@ -33,9 +36,9 @@ public class Enemy extends Entity
     
     public void render(float delta) 
     {
-        shapeRenderer.setColor(new Color(col, col, col, 1.0f));
+        shapeRenderer.setColor(new Color(color, color, color, alpha));
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.circle(x, y, 20);
+        shapeRenderer.circle(x, y, r);
         shapeRenderer.end();
     }
 }

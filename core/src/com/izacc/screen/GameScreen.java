@@ -10,8 +10,11 @@ import com.izacc.equipment.EffectType;
 import com.izacc.equipment.Equipment;
 import com.izacc.equipment.Item;
 import com.izacc.equipment.ItemType;
+import com.izacc.equipment.SpellCard;
 import com.izacc.equipment.generate.ItemCreator;
 import com.izacc.equipment.generate.ItemDropped;
+import com.izacc.equipment.generate.ScrollDropped;
+import com.izacc.equipment.generate.SpellCreator;
 import com.izacc.game.Izacc;
 import com.izacc.utility.Entity;
 import java.util.ArrayList;
@@ -25,7 +28,9 @@ public class GameScreen extends AbstractScreen
     private Character character;
     private Equipment equipment;
     private ItemCreator itemCreator;
+    private SpellCreator spellCreator;
     private ArrayList<ItemDropped> itemDropped;
+    private ArrayList<ScrollDropped> scrollDropped;
     private ArrayList<Enemy> enemy;
     
     private boolean showEquipment;
@@ -43,10 +48,14 @@ public class GameScreen extends AbstractScreen
     @Override
     protected void init() 
     {
-        character = new Character(Character.Type.MAGE);
         itemCreator = new ItemCreator();
+        spellCreator = new SpellCreator();
         equipment = new Equipment();
+        
+        character = new Character(Character.Type.MAGE);
+        
         itemDropped = new ArrayList<ItemDropped>();
+        scrollDropped = new ArrayList<ScrollDropped>();
         enemy = new ArrayList<Enemy>();
         
         showEquipment = false;
@@ -66,19 +75,24 @@ public class GameScreen extends AbstractScreen
             e.render(delta);
         
         timeState+=Gdx.graphics.getDeltaTime();
-        if(timeState>=1.0f){
+        if(timeState>=1.0f)
+        {
                 for(Item item : equipment.getBagpack())
                     if(item.disable && item.time > 0){
                         item.time--;
                     }else{
-                        if(item.effectType == EffectType.spell && item.itemType == ItemType.spell){
-                            character.getPlayer().setSpell(Player.Spell.SPELL_1);
-                        }
-                        
                         equipment.getBagpack().remove(item);
                         
                         break;
                     }
+                
+                if(equipment.getSpellCard() != null){
+                    if(equipment.getSpellCard().time <= 0 && equipment.getSpellCard().effectType == EffectType.spell && equipment.getSpellCard().itemType == ItemType.spell){
+                        character.getPlayer().setSpell(Player.Spell.SPELL_0);
+                        equipment.removeSpell();
+                    }else
+                        equipment.getSpellCard().time--;
+                }
                 
                 timeState = 0.0f;
         }
@@ -97,6 +111,14 @@ public class GameScreen extends AbstractScreen
             batch.draw(item.getItem().getIcon(), item.getEntity().getX(), item.getEntity().getY());
             font.setColor(Color.BLACK);
             font.draw(batch, str.toString(), item.getEntity().getX() - 25, item.getEntity().getY() + 50);
+        }
+        
+        for(ScrollDropped scroll : scrollDropped){
+            String str = "Spell name: " + scroll.getSpellCard().name;
+            
+            batch.draw(scroll.getSpellCard().getIcon(), scroll.getEntity().getX(), scroll.getEntity().getY());
+            font.setColor(Color.BLACK);
+            font.draw(batch, str.toString(), scroll.getEntity().getX() - 25, scroll.getEntity().getY() + 50);
         }
         
         batch.end();
@@ -137,11 +159,7 @@ public class GameScreen extends AbstractScreen
             }else
                 font.setColor(Color.WHITE);
             
-            if(item.effectType == EffectType.spell && item.itemType == ItemType.spell){
-                font.setColor(Color.GREEN);
-            }
-            
-            if(item.disable || item.effectType == EffectType.spell){
+            if(item.disable){
                 String text = item.name + " " + item.time + " " + item.bonus;
                 font.draw(equipmentBatch, text, 5, izacc.SCREEN_HEIGHT - 5 - level * 15);
             }else {
@@ -150,6 +168,13 @@ public class GameScreen extends AbstractScreen
             }
             
             level++;
+        }
+        
+        if(equipment.getSpellCard() != null){
+            font.setColor(Color.GREEN);
+            
+            String text = equipment.getSpellCard().name + " " + equipment.getSpellCard().time + " " + equipment.getSpellCard().bonus;
+            font.draw(equipmentBatch, text, 5, izacc.SCREEN_HEIGHT - 5 - level * 15);
         }
         
         equipmentBatch.end();
@@ -163,14 +188,26 @@ public class GameScreen extends AbstractScreen
         {
             for(Enemy en2 : enemy)
             {
-                if(isColision(en2, en1))
+                if(en1.isColision(en2))
                 {
-                    Item item = itemCreator.createRandomItem(en2.getMobRank());
+                    Item item = null;
+                    SpellCard spellCard = null;
+                    
+                    if(random.nextInt(10) <= 7)
+                        item = itemCreator.createRandomItem(en2.getMobRank());
+                    else
+                        spellCard = spellCreator.createSpell(en2.getMobRank());
             
                     if(item != null)
                     {
                         ItemDropped it = new ItemDropped(item, en2.getX(), en2.getY());
                         itemDropped.add(it);
+                    }
+                    
+                    if(spellCard != null)
+                    {
+                        ScrollDropped scroll = new ScrollDropped(spellCard, en2.getX(), en2.getY());
+                        scrollDropped.add(scroll);
                     }
                     
                     enemy.remove(en2);
@@ -181,14 +218,25 @@ public class GameScreen extends AbstractScreen
         
         for(ItemDropped item : itemDropped)
         {
-            if(isColision(item.getEntity(), character.getPlayer()))
-            {
-                if(item.getItem().effectType == EffectType.spell && item.getItem().itemType == ItemType.spell){
-                    character.getPlayer().setSpell(Player.Spell.SPELL_2);
-                }
-                
+            if(character.getPlayer().isColision(item.getEntity()))
+            {   
                 equipment.addItem(item.getItem());
                 itemDropped.remove(item);
+                
+                break;
+            }
+        }
+        
+        for(ScrollDropped scroll : scrollDropped)
+        {
+            if(character.getPlayer().isColision(scroll.getEntity()))
+            {   
+                String res = "SPELL_" + (scroll.getSpellCard().id);
+                System.out.println(res);
+            
+                character.getPlayer().setSpell(Player.Spell.valueOf(res));
+                equipment.setSpellCard(scroll.getSpellCard());
+                scrollDropped.remove(scroll);
                 
                 break;
             }
@@ -201,46 +249,6 @@ public class GameScreen extends AbstractScreen
         }
         else if(!Gdx.input.isKeyPressed(Input.Keys.E) && clicked)
             clicked = false;
-    }
-    
-    private boolean isColision(Entity e1, Entity e2)
-    {
-        float leftA, leftB;
-        float rightA, rightB;
-        float topA, topB;
-        float bottomA, bottomB;
-
-        leftA = e1.getX() - 20;
-        rightA = e1.getX() + 40;
-        topA =  e1.getY() - 20;
-        bottomA =  e1.getY() + 40;
-
-        leftB = e2.getX() - 10;
-        rightB = e2.getX() + 20;
-        topB = e2.getY() - 10;
-        bottomB = e2.getY() + 20;
-        
-        if( bottomA <= topB )
-        {
-            return false;
-        }
-
-        if( topA >= bottomB )
-        {
-            return false;
-        }
-
-        if( rightA <= leftB )
-        {
-            return false;
-        }
-
-        if( leftA >= rightB )
-        {
-            return false;
-        }
-
-        return true;
     }
     
 }

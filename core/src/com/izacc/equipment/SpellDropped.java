@@ -5,20 +5,11 @@
  */
 package com.izacc.equipment;
 
-import com.badlogic.gdx.utils.JsonValue;
-
 /**
  *
  * @author pawel_000
  */
-public class SpellCard extends Item
+public class SpellDropped
 {
-    public int id;
     
-    public SpellCard(JsonValue json) 
-    {
-        super(json);
-        
-        this.id = json.has("id") ? json.getInt("id") : 0;
-    }
 }

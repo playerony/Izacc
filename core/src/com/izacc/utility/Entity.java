@@ -9,6 +9,7 @@ public class Entity
 {
     protected float x;
     protected float y;
+    protected float r;
     protected float xVel;
     protected float yVel;
     protected float health;
@@ -24,10 +25,51 @@ public class Entity
         this.y = y;
         this.xVel = 0.0f;
         this.yVel = 0.0f;
+        this.r = 10.0f;
 
         shapeRenderer = new ShapeRenderer();
     }
 
+    public boolean isColision(Entity e1)
+    {
+        float leftA, leftB;
+        float rightA, rightB;
+        float topA, topB;
+        float bottomA, bottomB;
+
+        leftA = e1.getX() - e1.getR();
+        rightA = e1.getX() + e1.getR();
+        topA =  e1.getY() - e1.getR();
+        bottomA =  e1.getY() + e1.getR();
+
+        leftB = x - r;
+        rightB = x + r;
+        topB = y - r;
+        bottomB = y + r;
+        
+        if( bottomA <= topB )
+        {
+            return false;
+        }
+
+        if( topA >= bottomB )
+        {
+            return false;
+        }
+
+        if( rightA <= leftB )
+        {
+            return false;
+        }
+
+        if( leftA >= rightB )
+        {
+            return false;
+        }
+
+        return true;
+    }
+    
     /**
      *
      * Getters and Setters
@@ -71,5 +113,15 @@ public class Entity
     public void setX(float x) 
     {
         this.x = x;
+    }
+    
+    public float getR()
+    {
+        return r;
+    }
+
+    public void setR(float r)
+    {
+        this.r = r;
     }
 }

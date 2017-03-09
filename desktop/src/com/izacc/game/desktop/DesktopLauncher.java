@@ -7,6 +7,7 @@ import com.izacc.game.Izacc;
 public class DesktopLauncher {
     public static void main (String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        
         config.title = Izacc.GAME_NAME;
         config.width = Izacc.SCREEN_WIDTH;
         config.height = Izacc.SCREEN_HEIGHT;

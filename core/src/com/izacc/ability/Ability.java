@@ -12,7 +12,8 @@ import java.util.ArrayList;
  *
  * @author pawel_000
  */
-public abstract class Ability extends Entity{
+public abstract class Ability extends Entity
+{
     protected ArrayList<Bullet> bullets;
     
     protected float attackSpeed;
@@ -22,14 +23,16 @@ public abstract class Ability extends Entity{
     public enum Direction { LEFT, RIGHT, UP, DOWN };
     protected Direction direction;
     
-    public Ability(int direction, float x, float y){
+    public Ability(int direction, float x, float y)
+    {
         super(x, y);
         
         bullets = new ArrayList<Bullet>();
         this.direction = Direction.values()[direction];
     }
     
-    public void init() {
+    public void init() 
+    {
         initSpeed();
     }
     
@@ -39,20 +42,30 @@ public abstract class Ability extends Entity{
     
     public abstract void render(float delta);
     
+    public void clearBullets()
+    {
+        this.bullets.clear();
+    }
+    
     /**
      * 
      * Gettets and setters
      */
 
-    public boolean isActived() {
+    public boolean isActived() 
+    {
         return actived;
     }
 
-    public void setActived(boolean actived) {
+    public void setActived(boolean actived) 
+    {
         this.actived = actived;
     }
     
-    public ArrayList<Bullet> getBullets(){
+    public ArrayList<Bullet> getBullets()
+    {
         return bullets;
     }
+    
+    
 }

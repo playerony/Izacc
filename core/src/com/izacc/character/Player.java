@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.izacc.ability.Ability;
 import com.izacc.ability.Bullet;
+import com.izacc.ability.Garnet;
 import com.izacc.ability.SunShot;
 import com.izacc.game.Izacc;
 import com.izacc.utility.Entity;
@@ -20,18 +21,19 @@ public abstract class Player extends Entity {
     private static boolean clicked = true;
 
     protected enum Direction { LEFT, RIGHT, UP, DOWN, STAY };
-    public enum Spell {SPELL_1, SPELL_2};
+    public enum Spell {SPELL_0, SPELL_1, SPELL_2};
     
     private Direction textureDirection;
     private Direction direction;
     private Spell spell;
     
-    protected ArrayList<Ability> bullets;
+    private ArrayList<Ability> bullets;
 
     public Player(float x, float y) {
         super(x, y);
 
         init();
+        this.r = 20;
     }
 
     public abstract void render(float delta);
@@ -39,7 +41,7 @@ public abstract class Player extends Entity {
     public abstract void attack(Entity entity);
     
     private void init(){
-        spell = Spell.SPELL_1;
+        spell = Spell.SPELL_0;
         direction = Direction.STAY;
         textureDirection = Direction.RIGHT;
         
@@ -50,7 +52,24 @@ public abstract class Player extends Entity {
         inputHandler();
         move();
         
-        System.out.println(bullets.size());
+        if(bullets.size() > 0)
+            for(Ability a : bullets)
+            {
+                boolean checked = false;
+                if(a.isActived())
+                {
+                    for(Ability b : a.getBullets()){
+                        bullets.add(b);
+                        checked = true;
+                    }
+
+                    if(checked){
+                        a.getBullets().clear();
+                        bullets.remove(a);
+                        break;
+                    }
+                }
+            }
         
         for(Ability a : bullets){
             a.update();
@@ -76,14 +95,18 @@ public abstract class Player extends Entity {
                 break;
             }
         }
+        
+         addBulletsToBuffer();
     }
 
-    private void inputHandler() {
+    private void inputHandler() 
+    {
         abilityInputHandler();
         controlInputHandler();
     }
     
-    private void controlInputHandler(){
+    private void controlInputHandler()
+    {
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
             direction = Direction.LEFT;
         else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
@@ -99,18 +122,20 @@ public abstract class Player extends Entity {
             textureDirection = direction;
     }
     
-    private void abilityInputHandler(){
+    private void abilityInputHandler()
+    {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && clicked){
             clicked = false;
             
             switch(spell)
             {
-                case SPELL_2:
-                    Ability a = new SunShot(textureDirection.ordinal(), x, y);
-
-                    for(Bullet b : a.getBullets())
-                        bullets.add(b);
-                    break;
+                case SPELL_1:{
+                    bullets.add(new SunShot(textureDirection.ordinal(), x, y));
+                    }break;
+                    
+                case SPELL_2:{
+                    bullets.add(new Garnet(textureDirection.ordinal(), x, y));
+                    }break;
                     
                 default:
                     bullets.add(new Bullet(textureDirection.ordinal(), x, y));
@@ -121,6 +146,18 @@ public abstract class Player extends Entity {
         {
             clicked = true;
         }
+    }
+    
+    private void addBulletsToBuffer(){
+        for(Ability a : bullets)
+            if(a.isActived()){
+                for(Bullet b : a.getBullets())
+                    bullets.add(b);
+                
+                a.clearBullets();
+                bullets.remove(a);
+                break;
+            }
     }
 
     private void move()
@@ -177,6 +214,4 @@ public abstract class Player extends Entity {
     {
         this.spell = spell;
     }
-    
-    
 }

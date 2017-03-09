@@ -34,7 +34,7 @@ public class ItemCreator
     public Item createRandomItem(int mobRank)
     {
         Item item = null;
-        int rand = random.nextInt(7);
+        int rand = random.nextInt(6);
         
         switch(rand)
         {
@@ -56,10 +56,6 @@ public class ItemCreator
                 
             case 4:
                 item = potionCreator.createAttackSpeedPotion(mobRank);
-                break;
-                
-            case 5:
-                item = spellCreator.createSpell(mobRank);
                 break;
                     
             default:

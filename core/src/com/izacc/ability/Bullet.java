@@ -7,7 +7,6 @@ package com.izacc.ability;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.izacc.game.Izacc;
 
 /**
  *
@@ -21,6 +20,7 @@ public class Bullet extends Ability
         super(direction, x, y);
         
         init();
+        this.r = 5.0f;
     }
 
     public Bullet(int direction, float x, float y, float xVel, float yVel) {
@@ -30,8 +30,17 @@ public class Bullet extends Ability
         this.yVel = yVel;
     }
     
+    public Bullet(int direction, float x, float y, float xVel, float yVel, float r) {
+        super(direction, x, y);
+        
+        this.xVel = xVel;
+        this.yVel = yVel;
+        this.r = r;
+    }
+    
     @Override
-    public void initSpeed() {
+    public void initSpeed() 
+    {
         attackSpeed = 5.2f;
         
         switch(direction){
@@ -58,16 +67,18 @@ public class Bullet extends Ability
     }
     
     @Override
-    public void update() {
+    public void update() 
+    {
         x+=xVel;
         y+=yVel;
     }
 
     @Override
-    public void render(float delta) {
+    public void render(float delta) 
+    {
         shapeRenderer.setColor(Color.WHITE);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.circle(x, y, 10);
+        shapeRenderer.circle(x, y, r);
         shapeRenderer.end();
     }
 }
