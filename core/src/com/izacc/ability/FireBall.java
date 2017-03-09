@@ -3,25 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.izacc.ability.mage;
+package com.izacc.ability;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.izacc.ability.Ability;
 
 /**
  *
  * @author pawel_000
  */
-public class SmallFireBall extends Ability{
+public class FireBall extends Ability
+{
+    private float INCREASE_RADIUS_BY = 0.01f;
 
-    public SmallFireBall(int direction, float x, float y) {
+    public FireBall(int direction, float x, float y) 
+    {
         super(direction, x, y);
+        
+        this.r = 0.5f;
+        
+        init();
     }
-    
+
     @Override
-    public void initSpeed() {
-        attackSpeed = 5.2f;
+    public void initSpeed() 
+    {
+        attackSpeed = 7.5f;
         
         switch(direction){
             case LEFT:
@@ -45,14 +52,14 @@ public class SmallFireBall extends Ability{
                 break;
         }
     }
-    
-    @Override
-    public void attack() {
-        actived = true;
-    }
 
     @Override
     public void update() {
+        if(r < 25.0f){
+            INCREASE_RADIUS_BY+=0.1f;
+            r+=INCREASE_RADIUS_BY;
+        }
+        
         x+=xVel;
         y+=yVel;
     }
@@ -61,7 +68,7 @@ public class SmallFireBall extends Ability{
     public void render(float delta) {
         shapeRenderer.setColor(Color.WHITE);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.circle(x, y, 4);
+        shapeRenderer.circle(x, y, r);
         shapeRenderer.end();
     }
     

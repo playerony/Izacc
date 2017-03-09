@@ -4,9 +4,12 @@ package com.izacc.character;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.izacc.ability.Ability;
+import com.izacc.ability.Aurelion;
 import com.izacc.ability.Bullet;
+import com.izacc.ability.FireBall;
 import com.izacc.ability.Garnet;
 import com.izacc.ability.SunShot;
+import com.izacc.ability.ThrowGarnet;
 import com.izacc.game.Izacc;
 import com.izacc.utility.Entity;
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ public abstract class Player extends Entity {
     private static boolean clicked = true;
 
     protected enum Direction { LEFT, RIGHT, UP, DOWN, STAY };
-    public enum Spell {SPELL_0, SPELL_1, SPELL_2};
+    public enum Spell {SPELL_0, SPELL_1, SPELL_2, SPELL_3, SPELL_4, SPELL_5};
     
     private Direction textureDirection;
     private Direction direction;
@@ -130,11 +133,23 @@ public abstract class Player extends Entity {
             switch(spell)
             {
                 case SPELL_1:{
+                    bullets.add(new FireBall(textureDirection.ordinal(), x, y));
+                    }break;
+                
+                case SPELL_2:{
                     bullets.add(new SunShot(textureDirection.ordinal(), x, y));
                     }break;
                     
-                case SPELL_2:{
+                case SPELL_3:{
                     bullets.add(new Garnet(textureDirection.ordinal(), x, y));
+                    }break;
+                    
+                case SPELL_4:{
+                    bullets.add(new ThrowGarnet(textureDirection.ordinal(), x, y));
+                    }break;
+                    
+                case SPELL_5:{
+                    bullets.add(new Aurelion(textureDirection.ordinal(), x, y));
                     }break;
                     
                 default:

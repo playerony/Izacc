@@ -22,7 +22,14 @@ public class Garnet extends Ability
     {
         super(direction, x, y);
         
-        this.r = 30;
+        this.r = 30.0f;
+    }
+    
+    public Garnet(int direction, float x, float y, float r)
+    {
+        super(direction, x, y);
+        
+        this.r = r;
     }
 
     @Override

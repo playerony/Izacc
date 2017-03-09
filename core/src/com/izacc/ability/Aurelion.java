@@ -12,22 +12,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  *
  * @author pawel_000
  */
-public class SunShot extends Ability
+public class Aurelion extends Ability
 {
-    private float shots = 25.0f;
+    private static final float range = 40.0f;
     
-    public SunShot(int direction, float x, float y)
+    public Aurelion(int direction, float x, float y)
     {
         super(direction, x, y);
-        
-        init();
-    }
-    
-    public SunShot(int direction, float x, float y, float shots)
-    {
-        super(direction, x, y);
-        
-        this.shots = shots;
         
         init();
     }
@@ -35,24 +26,25 @@ public class SunShot extends Ability
     @Override
     public void initSpeed()
     {
+        float value = 4.0f;
         float radius = 2.0f;
         float xPos = 0.0f;
         float yPos = 0.0f;
         float xV = 0.0f;
         float yV = 0.0f;
         
-        for(int i=0 ; i<shots ; i++)
+        for(int i=0 ; i<value ; i++)
         {
-            xPos = (float) (radius * Math.sin(2 * Math.PI * (i / shots))) + x;
-            yPos = (float) (radius * -Math.cos(2 * Math.PI * (i / shots))) + y;
-            xV = (float) (radius * Math.sin(2 * Math.PI * (i / shots)));
-            yV = (float) (radius * -Math.cos(2 * Math.PI * (i / shots)));
+            xPos = (float) (radius * Math.sin(2 * Math.PI * (i / value))) + x;
+            yPos = (float) (radius * -Math.cos(2 * Math.PI * (i / value))) + y;
+            xV = (float) (radius * Math.sin(2 * Math.PI * (i / value)));
+            yV = (float) (radius * -Math.cos(2 * Math.PI * (i / value)));
             
             Bullet bullet = new Bullet(direction.ordinal(), xPos, yPos, xV, yV);
             bullets.add(bullet);
         }
         
-        this.actived = true;
+        actived = true;
     }
 
     @Override
@@ -64,9 +56,10 @@ public class SunShot extends Ability
     @Override
     public void render(float delta)
     {
-        shapeRenderer.setColor(Color.LIME);
+        shapeRenderer.setColor(Color.RED);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.circle(x, y, r);
         shapeRenderer.end();
     }
+    
 }

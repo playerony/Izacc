@@ -20,7 +20,7 @@ public class SpellCreator extends Creator
         
         if(isDrop())
         {
-            if(rank >= 0 && rank < 1 && isDrop())
+            if(rank >= 0 && rank < 3 && isDrop())
             {
                 jsonValue = itemLoader.getSpells().get(rank);
             }
@@ -29,7 +29,9 @@ public class SpellCreator extends Creator
                 int value = random.nextInt(9) + 1;
 
                 if(value <= 6)
-                    jsonValue = itemLoader.getSpells().get(1);
+                    jsonValue = itemLoader.getSpells().get(2);
+                else
+                    jsonValue = itemLoader.getSpells().get(3);
             }
             
             if(jsonValue != null)
