@@ -15,10 +15,16 @@ public class SpellCard extends Item
 {
     public int id;
     
+    public float damage;
+    
+    public SpellType spellType;
+    
     public SpellCard(JsonValue json) 
     {
         super(json);
         
         this.id = json.has("id") ? json.getInt("id") : 0;
+        this.damage = json.has("damage") ? json.getFloat("damage") : 0.0f;
+        this.spellType = SpellType.valueOf(json.getString("spellType"));
     }
 }

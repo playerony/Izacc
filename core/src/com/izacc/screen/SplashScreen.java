@@ -29,7 +29,7 @@ public class SplashScreen extends AbstractScreen
     @Override
     protected void init() 
     {
-        texture = new Texture(Path.IMAGE_PATH + "photo.jpg");
+        texture = new Texture(Path.IMAGE_PATH + "badlogic.jpg");
     }
 
     @Override

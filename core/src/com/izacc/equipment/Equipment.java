@@ -5,6 +5,8 @@
  */
 package com.izacc.equipment;
 
+import com.badlogic.gdx.Gdx;
+import com.izacc.character.*;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +17,7 @@ public class Equipment
 {
     private ArrayList<Item> bagpack;
     private SpellCard spellCard = null;
+    private float timeState = 0.0f;
     
     public Equipment()
     {
@@ -25,6 +28,38 @@ public class Equipment
     {
         bagpack = new ArrayList<Item>();
     }
+    
+    public void update(Player player)
+    {
+        timeState+=Gdx.graphics.getDeltaTime();
+        if(timeState >= 1.0f)
+        {
+            for(Item item : bagpack)
+                if(item.disable && item.time > 0)
+                {
+                    item.time--;
+                }
+                else
+                {
+                    bagpack.remove(item);
+                        
+                    break;
+                }
+            
+            if(spellCard != null)
+            {
+                if(spellCard.time <= 0 && spellCard.effectType == EffectType.spell && spellCard.itemType == ItemType.spell)
+                {
+                    player.setSpell(Spell.SPELL_0);
+                    removeSpell();
+                }
+                else
+                    spellCard.time--;
+                }
+                
+                timeState = 0.0f;
+        }
+    }
 
     public void addItem(Item item)
     {
@@ -32,7 +67,8 @@ public class Equipment
         {
             boolean isAdd = false;
             
-            for(Item it : bagpack){
+            for(Item it : bagpack)
+            {
                 if(it.name.equals(item.name) && it.packable)
                 {
                     it.count++;
@@ -50,11 +86,13 @@ public class Equipment
         }
     }
     
-    public void removeItem(Item item){
+    public void removeItem(Item item)
+    {
         bagpack.remove(item);
     }
     
-    public void removeSpell(){
+    public void removeSpell()
+    {
         this.spellCard = null;
     }
 
@@ -75,6 +113,4 @@ public class Equipment
         else
             spellCard = spell;
     }
-    
-    
 }

@@ -1,30 +1,47 @@
 [
 	{
-		name: "File Ball",
+		name: "Small File Ball",
 		description: "Scroll 1",
 		file: "scroll_1.png",
 		type: "spell",
-		bonus: 10,
+		damage: 20,
 		time: 20,
 		buy: 100,
 		sell: 50,
 		id: 1,
 		disable: true,
 		itemType: "spell"
+		spellType: "shot"
 	},
-	
+
 	{
-		name: "Sun shot",
+		name: "Fire Ball",
 		description: "Scroll 1",
 		file: "scroll_1.png",
 		type: "spell",
-		bonus: 10,
-		time: 5,
+		damage: 30,
+		time: 10,
 		buy: 100,
 		sell: 50,
 		id: 2,
 		disable: true,
 		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "Small Sun Shot",
+		description: "Scroll 2",
+		file: "scroll_1.png",
+		type: "spell",
+		damage: 10,
+		time: 5,
+		buy: 100,
+		sell: 50,
+		id: 3,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
 	},
 	
 	{
@@ -32,13 +49,29 @@
 		description: "Holy shit its a garnet",
 		file: "scroll_1.png",
 		type: "spell",
-		bonus: 10,
+		damage: 25,
 		time: 5,
 		buy: 100,
 		sell: 50,
-		id: 3,
+		id: 4,
 		disable: true,
 		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "Bigger Sun Shot",
+		description: "Scroll 3",
+		file: "scroll_1.png",
+		type: "spell",
+		damage: 20,
+		time: 5,
+		buy: 100,
+		sell: 50,
+		id: 5,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
 	},
 	
 	{
@@ -46,13 +79,26 @@
 		description: "Holy shit its a garnet",
 		file: "scroll_1.png",
 		type: "spell",
-		bonus: 10,
+		damage: 30,
 		time: 5,
 		buy: 100,
 		sell: 50,
-		id: 4,
+		id: 6,
 		disable: true,
 		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "District ?",
+		description: "Shield",
+		file: "scroll_1.png",
+		type: "spell",
+		buy: 100,
+		sell: 50,
+		id: 7,
+		itemType: "spell"
+		spellType: "other"
 	},
 	
 	{
@@ -60,12 +106,28 @@
 		description: "Aurelion Sol",
 		file: "scroll_1.png",
 		type: "spell",
-		bonus: 10,
+		damage: 50,
 		time: 5,
 		buy: 100,
 		sell: 50,
-		id: 5,
+		id: 8,
 		disable: true,
 		itemType: "spell"
-	}
+		spellType: "shot"
+	},
+	
+	{
+		name: "Huge Sun Shot",
+		description: "Scroll 4",
+		file: "scroll_1.png",
+		type: "spell",
+		damage: 40,
+		time: 5,
+		buy: 100,
+		sell: 50,
+		id: 9,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
+	},
 ]

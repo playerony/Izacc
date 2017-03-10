@@ -15,12 +15,24 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class FireBall extends Ability
 {
     private float INCREASE_RADIUS_BY = 0.01f;
+    private float SIZE_LIMIT;
 
     public FireBall(int direction, float x, float y) 
     {
         super(direction, x, y);
         
         this.r = 0.5f;
+        this.SIZE_LIMIT = 25.0f;
+        
+        init();
+    }
+    
+    public FireBall(int direction, float x, float y, float SIZE_LIMIT) 
+    {
+        super(direction, x, y);
+        
+        this.r = 0.5f;
+        this.SIZE_LIMIT = SIZE_LIMIT;
         
         init();
     }
@@ -28,7 +40,7 @@ public class FireBall extends Ability
     @Override
     public void initSpeed() 
     {
-        attackSpeed = 7.5f;
+        attackSpeed = 6.9f;
         
         switch(direction){
             case LEFT:
@@ -55,7 +67,7 @@ public class FireBall extends Ability
 
     @Override
     public void update() {
-        if(r < 25.0f){
+        if(r < SIZE_LIMIT){
             INCREASE_RADIUS_BY+=0.1f;
             r+=INCREASE_RADIUS_BY;
         }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.izacc.ability.Ability;
 import com.izacc.ability.Aurelion;
 import com.izacc.ability.Bullet;
+import com.izacc.ability.District;
 import com.izacc.ability.FireBall;
 import com.izacc.ability.Garnet;
 import com.izacc.ability.SunShot;
@@ -17,14 +18,15 @@ import java.util.ArrayList;
 /**
  * Created by pawel_000 on 2017-02-25.
  */
-public abstract class Player extends Entity {
+public abstract class Player extends Entity 
+{
     private final float speed = 5.1f;
-    private final float friction = 0.5f;
+    private final float friction = 0.65f;
+    private final float baseDamage = 7.5f;
     
     private static boolean clicked = true;
 
     protected enum Direction { LEFT, RIGHT, UP, DOWN, STAY };
-    public enum Spell {SPELL_0, SPELL_1, SPELL_2, SPELL_3, SPELL_4, SPELL_5};
     
     private Direction textureDirection;
     private Direction direction;
@@ -133,23 +135,40 @@ public abstract class Player extends Entity {
             switch(spell)
             {
                 case SPELL_1:{
-                    bullets.add(new FireBall(textureDirection.ordinal(), x, y));
+                    bullets.add(new FireBall(textureDirection.ordinal(), x, y, 12.5f));
                     }break;
-                
+                    
                 case SPELL_2:{
-                    bullets.add(new SunShot(textureDirection.ordinal(), x, y));
+                    bullets.add(new FireBall(textureDirection.ordinal(), x, y));
                     }break;
                     
                 case SPELL_3:{
-                    bullets.add(new Garnet(textureDirection.ordinal(), x, y));
+                    bullets.add(new SunShot(textureDirection.ordinal(), x, y, 8));
                     }break;
                     
                 case SPELL_4:{
+                    bullets.add(new Garnet(textureDirection.ordinal(), x, y));
+                    }break;
+                
+                case SPELL_5:{
+                    bullets.add(new SunShot(textureDirection.ordinal(), x, y, 16));
+                    }break;
+                    
+                case SPELL_6:{
                     bullets.add(new ThrowGarnet(textureDirection.ordinal(), x, y));
                     }break;
                     
-                case SPELL_5:{
+                case SPELL_7:{
+                    bullets.add(new District(textureDirection.ordinal(), x, y));
+                    spell = Spell.SPELL_0;
+                    }break;
+                    
+                case SPELL_8:{
                     bullets.add(new Aurelion(textureDirection.ordinal(), x, y));
+                    }break;
+                    
+                case SPELL_9:{
+                    bullets.add(new SunShot(textureDirection.ordinal(), x, y, 24));
                     }break;
                     
                 default:
@@ -206,11 +225,6 @@ public abstract class Player extends Entity {
         yVel*=friction;
     }
 
-    public void addGold(float gold)
-    {
-        this.gold += gold;
-    }
-
     /**
      * Getters and Setters
      */
@@ -229,4 +243,11 @@ public abstract class Player extends Entity {
     {
         this.spell = spell;
     }
+
+    public float getBaseDamage()
+    {
+        return baseDamage;
+    }
+    
+    
 }

@@ -13,6 +13,7 @@ public class Entity
     protected float xVel;
     protected float yVel;
     protected float health;
+    protected float MAX_HEALTH;
     protected float energy;
     protected float shield;
     protected float gold;
@@ -28,6 +29,17 @@ public class Entity
         this.r = 10.0f;
 
         shapeRenderer = new ShapeRenderer();
+    }
+    
+    public boolean isCircleCollision(Entity e1){
+        float xPos = e1.x - x;
+        float yPos = e1.y - y;
+        float distance = (float) Math.sqrt(Math.pow(xPos, 2) + Math.pow(yPos, 2));
+        
+        if(distance >= e1.r + r)
+            return false;
+        
+        return true;
     }
 
     public boolean isColision(Entity e1)
@@ -123,5 +135,15 @@ public class Entity
     public void setR(float r)
     {
         this.r = r;
+    }
+
+    public float getHealth()
+    {
+        return health;
+    }
+
+    public float getMaxHealth()
+    {
+        return MAX_HEALTH;
     }
 }

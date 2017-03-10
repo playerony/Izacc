@@ -26,6 +26,7 @@ public class Item
     public boolean isPermanent;
     
     public float bonus;
+    
     public int time;
     public int buy;
     public int sell;

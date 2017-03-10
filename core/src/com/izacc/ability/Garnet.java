@@ -16,7 +16,8 @@ import java.util.Random;
  */
 public class Garnet extends Ability
 {
-    float timeState = 0.0f;
+    private float timeState = 0.0f;
+    private int power = 20;
     
     public Garnet(int direction, float x, float y)
     {
@@ -30,6 +31,14 @@ public class Garnet extends Ability
         super(direction, x, y);
         
         this.r = r;
+    }
+    
+    public Garnet(int direction, float x, float y, float r, int power)
+    {
+        super(direction, x, y);
+        
+        this.r = r;
+        this.power = power;
     }
 
     @Override
@@ -50,8 +59,8 @@ public class Garnet extends Ability
                 int yV = 0;
                 
                 do{
-                  xV = random.nextInt(20) - 10;
-                  yV = random.nextInt(20) - 10;
+                  xV = random.nextInt(power) - power / 2;
+                  yV = random.nextInt(power) - power / 2;
                 }while(xV == 0 || yV == 0);
                 
                 bullets.add(new Bullet(direction.ordinal(), x, y, xV, yV));

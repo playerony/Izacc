@@ -12,37 +12,22 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  *
  * @author pawel_000
  */
-public class Bullet extends Ability
+public class Hibernation extends Ability
 {
-    protected boolean actived = false;
-    
-    public Bullet(int direction, float x, float y) {
+
+    public Hibernation(int direction, float x, float y)
+    {
         super(direction, x, y);
+        
+        this.r = 7.5f;
         
         init();
-        
-        this.r = 5.0f;
     }
 
-    public Bullet(int direction, float x, float y, float xVel, float yVel) {
-        super(direction, x, y);
-        
-        this.xVel = xVel;
-        this.yVel = yVel;
-    }
-    
-    public Bullet(int direction, float x, float y, float xVel, float yVel, float r) {
-        super(direction, x, y);
-        
-        this.xVel = xVel;
-        this.yVel = yVel;
-        this.r = r;
-    }
-    
     @Override
-    public void initSpeed() 
+    public void initSpeed()
     {
-        attackSpeed = 5.2f;
+        attackSpeed = 3.4f;
         
         switch(direction){
             case LEFT:
@@ -66,9 +51,9 @@ public class Bullet extends Ability
                 break;
         }
     }
-    
+
     @Override
-    public void update() 
+    public void update()
     {
         x+=xVel;
         y+=yVel;
@@ -77,9 +62,10 @@ public class Bullet extends Ability
     @Override
     public void render(float delta) 
     {
-        shapeRenderer.setColor(Color.WHITE);
+        shapeRenderer.setColor(Color.ORANGE);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.circle(x, y, r);
         shapeRenderer.end();
     }
+    
 }

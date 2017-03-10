@@ -19,6 +19,7 @@ public abstract class Ability extends Entity
     protected float attackSpeed;
     
     protected boolean actived = false;
+    protected boolean shield = false;
     
     public enum Direction { LEFT, RIGHT, UP, DOWN };
     protected Direction direction;
@@ -65,6 +66,11 @@ public abstract class Ability extends Entity
     public ArrayList<Bullet> getBullets()
     {
         return bullets;
+    }
+
+    public boolean isShield()
+    {
+        return shield;
     }
     
     
