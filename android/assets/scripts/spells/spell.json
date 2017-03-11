@@ -94,6 +94,7 @@
 		description: "Shield",
 		file: "scroll_1.png",
 		type: "spell",
+		time: 5,
 		buy: 100,
 		sell: 50,
 		id: 7,

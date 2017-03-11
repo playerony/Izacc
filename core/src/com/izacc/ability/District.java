@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class District extends Ability
 {
     private float MAX_RANGE = 150.0f;
-    private float timeState = 0.0f;
+    private float timeState = 0.1f;
     
     public District(int direction, float x, float y)
     {
@@ -39,6 +39,9 @@ public class District extends Ability
     {
         if(r < MAX_RANGE){
             r+=0.5f;
+            
+            xVel = r / timeState;
+            yVel = r / timeState;
         }
         
         timeState+=Gdx.graphics.getDeltaTime();

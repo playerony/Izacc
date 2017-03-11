@@ -35,16 +35,33 @@ public class Equipment
         if(timeState >= 1.0f)
         {
             for(Item item : bagpack)
+            {
                 if(item.disable && item.time > 0)
                 {
                     item.time--;
                 }
                 else
                 {
+                    switch(item.effectType)
+                    {
+                        case attack_dmg:
+                            player.addBonusDamage(-item.bonus);
+                            break;
+
+                        case speed:
+                            player.addtBonusMovemetSpeed(-item.bonus);
+                            break;
+
+                        case attack_speed:
+                            player.addBonusAttackSpeed(-item.bonus);
+                            break;
+                    }
+                    
                     bagpack.remove(item);
                         
                     break;
                 }
+            }
             
             if(spellCard != null)
             {

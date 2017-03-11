@@ -20,10 +20,18 @@ import java.util.ArrayList;
  */
 public abstract class Player extends Entity 
 {
-    private final float speed = 5.1f;
+    private final float speed = 5.0f;
     private final float friction = 0.65f;
     private final float baseDamage = 7.5f;
+    private float timeState = 0.0f;
     
+    private float bonusHealth = 0.0f;
+    private float bonusMovemetSpeed = 0.0f;
+    private float bonusAttackSpeed = 0.0f;
+    private float bonusDamage = 0.0f;
+    private float gold = 0.0f;
+    
+    private static boolean canShot = false;
     private static boolean clicked = true;
 
     protected enum Direction { LEFT, RIGHT, UP, DOWN, STAY };
@@ -34,18 +42,22 @@ public abstract class Player extends Entity
     
     private ArrayList<Ability> bullets;
 
-    public Player(float x, float y) {
+    public Player(float x, float y) 
+    {
         super(x, y);
 
         init();
         this.r = 20;
+        this.MAX_HEALTH = 100;
+        this.health = 100;
     }
 
     public abstract void render(float delta);
 
     public abstract void attack(Entity entity);
     
-    private void init(){
+    private void init()
+    {
         spell = Spell.SPELL_0;
         direction = Direction.STAY;
         textureDirection = Direction.RIGHT;
@@ -53,9 +65,17 @@ public abstract class Player extends Entity
         bullets = new ArrayList<Ability>();
     }
 
-    public void update(){
+    public void update()
+    {
         inputHandler();
         move();
+        
+        timeState+=Gdx.graphics.getDeltaTime();
+        if(timeState>=0.2f){
+            canShot = true;
+            timeState = 0.0f;
+        }
+        
         
         if(bullets.size() > 0)
             for(Ability a : bullets)
@@ -76,7 +96,8 @@ public abstract class Player extends Entity
                 }
             }
         
-        for(Ability a : bullets){
+        for(Ability a : bullets)
+        {
             a.update();
             
             if(a.getX() > Izacc.SCREEN_WIDTH)
@@ -129,52 +150,53 @@ public abstract class Player extends Entity
     
     private void abilityInputHandler()
     {
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && clicked){
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && clicked && canShot){
             clicked = false;
             
             switch(spell)
             {
-                case SPELL_1:{
+                case SPELL_1:
                     bullets.add(new FireBall(textureDirection.ordinal(), x, y, 12.5f));
-                    }break;
+                    break;
                     
-                case SPELL_2:{
+                case SPELL_2:
                     bullets.add(new FireBall(textureDirection.ordinal(), x, y));
-                    }break;
+                    break;
                     
-                case SPELL_3:{
+                case SPELL_3:
                     bullets.add(new SunShot(textureDirection.ordinal(), x, y, 8));
-                    }break;
+                    break;
                     
-                case SPELL_4:{
+                case SPELL_4:
                     bullets.add(new Garnet(textureDirection.ordinal(), x, y));
-                    }break;
+                    break;
                 
-                case SPELL_5:{
+                case SPELL_5:
                     bullets.add(new SunShot(textureDirection.ordinal(), x, y, 16));
-                    }break;
+                    break;
                     
-                case SPELL_6:{
+                case SPELL_6:
                     bullets.add(new ThrowGarnet(textureDirection.ordinal(), x, y));
-                    }break;
+                    break;
                     
-                case SPELL_7:{
+                case SPELL_7:
                     bullets.add(new District(textureDirection.ordinal(), x, y));
                     spell = Spell.SPELL_0;
-                    }break;
+                    break;
                     
-                case SPELL_8:{
+                case SPELL_8:
                     bullets.add(new Aurelion(textureDirection.ordinal(), x, y));
-                    }break;
+                    break;
                     
-                case SPELL_9:{
+                case SPELL_9:
                     bullets.add(new SunShot(textureDirection.ordinal(), x, y, 24));
-                    }break;
+                    break;
                     
                 default:
                     bullets.add(new Bullet(textureDirection.ordinal(), x, y));
                     break;
             }
+            canShot = false;
         }
         else if(!Gdx.input.isKeyPressed(Input.Keys.SPACE) && !clicked)
         {
@@ -199,19 +221,19 @@ public abstract class Player extends Entity
         switch (direction)
         {
             case LEFT:
-                xVel = -Math.abs(speed);
+                xVel = -Math.abs(speed) - bonusMovemetSpeed;
                 break;
 
             case RIGHT:
-                xVel = Math.abs(speed);
+                xVel = Math.abs(speed) + bonusMovemetSpeed;
                 break;
 
             case UP:
-                yVel = Math.abs(speed);
+                yVel = Math.abs(speed) + bonusMovemetSpeed;
                 break;
 
             case DOWN:
-                yVel = -Math.abs(speed);
+                yVel = -Math.abs(speed) - bonusMovemetSpeed;
                 break;
 
             default:
@@ -228,6 +250,79 @@ public abstract class Player extends Entity
     /**
      * Getters and Setters
      */
+
+    public float getBonusHealth() 
+    {
+        return bonusHealth;
+    }
+
+    public void addBonusHealth(float bonusHealth)
+    {
+        this.bonusHealth += bonusHealth;
+        
+        if(this.bonusHealth <= 0.0f)
+            this.bonusHealth = 0.0f;
+    }
+    
+    public void heal(float hp)
+    {
+        this.health += hp;
+        
+        if(this.health >= MAX_HEALTH)
+            this.health = MAX_HEALTH;
+    }
+
+    public float getBonusMovemetSpeed()
+    {
+        return bonusMovemetSpeed;
+    }
+
+    public void addtBonusMovemetSpeed(float bonusMovemetSpeed)
+    {
+        this.bonusMovemetSpeed += bonusMovemetSpeed;
+        
+        if(this.bonusMovemetSpeed <= 0.0f)
+            this.bonusMovemetSpeed = 0.0f;
+    }
+
+    public float getBonusAttackSpeed()
+    {
+        return bonusAttackSpeed;
+    }
+
+    public void addBonusAttackSpeed(float bonusAttackSpeed)
+    {
+        this.bonusAttackSpeed += bonusAttackSpeed;
+        
+        if(this.bonusAttackSpeed <= 0.0f)
+            this.bonusAttackSpeed = 0.0f;
+    }
+
+    public float getBonusDamage()
+    {
+        return bonusDamage;
+    }
+
+    public void addBonusDamage(float bonusDamage)
+    {
+        this.bonusDamage += bonusDamage;
+        
+        if(this.bonusDamage <= 0.0f)
+            this.bonusDamage = 0.0f;
+    }
+
+    public float getGold()
+    {
+        return gold;
+    }
+    
+    public void addGold(float gold)
+    {
+        this.gold += gold;
+        
+        if(this.gold <= 0.0f)
+            this.gold = 0.0f;
+    }
 
     public ArrayList<Ability> getAbilities() 
     {
@@ -249,5 +344,11 @@ public abstract class Player extends Entity
         return baseDamage;
     }
     
-    
+    public void addMaxHealth(float health){
+        this.MAX_HEALTH += health;
+        
+        if(MAX_HEALTH <= 0.0f){
+            MAX_HEALTH = 0.0f;
+        }
+    }
 }

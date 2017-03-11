@@ -5,11 +5,13 @@
  */
 package com.izacc.equipment;
 
+import com.badlogic.gdx.graphics.Texture;
+
 /**
  *
  * @author pawel_000
  */
-public class SpellDropped
+public interface Iconable
 {
-    
+    public Texture getIcon();
 }

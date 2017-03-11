@@ -12,7 +12,7 @@ import com.izacc.equipment.Item;
 import com.izacc.equipment.SpellCard;
 import com.izacc.equipment.generate.ItemCreator;
 import com.izacc.equipment.generate.ItemDropped;
-import com.izacc.equipment.generate.ScrollDropped;
+import com.izacc.equipment.ScrollDropped;
 import com.izacc.equipment.generate.SpellCreator;
 import com.izacc.game.Izacc;
 import java.util.ArrayList;
@@ -90,10 +90,36 @@ public class GameScreen extends AbstractScreen
         
         renderDroppedItems(delta);
         renderEquipment(delta);
+        renderBonuses(delta);
     }
     
-    private void renderEnemies(float delta){
-        for(Enemy e : enemy){
+    private void renderBonuses(float delta)
+    {
+        batch.begin();
+        
+        String str = "Attack damage: " + character.getPlayer().getBaseDamage() + " bonus(" + character.getPlayer().getBonusDamage()+ ")";
+        font.setColor(Color.BLACK);
+        font.draw(batch, str.toString(), 5, izacc.SCREEN_HEIGHT / 2);
+        
+        str = "Movement speed: " + character.getPlayer().getBonusMovemetSpeed();
+        font.setColor(Color.BLACK);
+        font.draw(batch, str.toString(), 5, izacc.SCREEN_HEIGHT / 2 - 15);
+        
+        str = "Hajs: " + character.getPlayer().getGold();
+        font.setColor(Color.BLACK);
+        font.draw(batch, str.toString(), 5, izacc.SCREEN_HEIGHT / 2 - 30);
+        
+        str = "Hp: " + character.getPlayer().getMaxHealth()+ " bonus(" + character.getPlayer().getBonusHealth()+ ")";
+        font.setColor(Color.BLACK);
+        font.draw(batch, str.toString(), 5, izacc.SCREEN_HEIGHT / 2 - 45);
+        
+        batch.end();
+    }
+    
+    private void renderEnemies(float delta)
+    {
+        for(Enemy e : enemy)
+        {
             e.render(delta);
         
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -182,9 +208,9 @@ public class GameScreen extends AbstractScreen
                 if(en1.isCircleCollision(en2) && !en1.isShield())
                 {
                     if(character.getPlayer().getSpell() == Spell.SPELL_0)
-                        en2.lostHealth(character.getPlayer().getBaseDamage());
+                        en2.lostHealth(character.getPlayer().getBaseDamage() + character.getPlayer().getBonusDamage());
                     else
-                        en2.lostHealth(equipment.getSpellCard().damage);
+                        en2.lostHealth(equipment.getSpellCard().damage + character.getPlayer().getBaseDamage() + character.getPlayer().getBonusDamage());
                         
                     character.getPlayer().getAbilities().remove(en1);
                     
@@ -232,8 +258,8 @@ public class GameScreen extends AbstractScreen
                     Vector2 speed1 = new Vector2(V1x.x + V1y.x, V1x.y + V1y.y);
                     Vector2 speed2 = new Vector2(V2x.x + V2y.x, V2x.y + V2y.y);
                             
-                    en2.setxVel(speed2.x);
-                    en2.setyVel(speed2.y);
+                    en2.setxVel(speed2.x / 70);
+                    en2.setyVel(speed2.y / 70);
                 }
             }
             
@@ -247,6 +273,46 @@ public class GameScreen extends AbstractScreen
             if(character.getPlayer().isColision(item.getEntity()))
             {   
                 equipment.addItem(item.getItem());
+                
+                switch(item.getItem().effectType)
+                {
+                    case gold:
+                        character.getPlayer().addGold(item.getItem().bonus);
+                        break;
+                        
+                    case max_attack_dmg:
+                        character.getPlayer().addBonusDamage(item.getItem().bonus);
+                        break;
+                        
+                    case max_attack_speed:
+                        character.getPlayer().addBonusAttackSpeed(item.getItem().bonus);
+                        break;
+                        
+                    case max_speed:
+                        character.getPlayer().addtBonusMovemetSpeed(item.getItem().bonus);
+                        break;
+                        
+                    case max_hp:
+                        character.getPlayer().addMaxHealth(item.getItem().bonus);
+                        break;
+                        
+                    case attack_dmg:
+                        character.getPlayer().addBonusDamage(item.getItem().bonus);
+                        break;
+                        
+                    case hp:
+                        character.getPlayer().heal(item.getItem().bonus);
+                        break;
+                        
+                    case speed:
+                        character.getPlayer().addtBonusMovemetSpeed(item.getItem().bonus);
+                        break;
+                        
+                    case attack_speed:
+                        character.getPlayer().addBonusAttackSpeed(item.getItem().bonus);
+                        break;
+                }
+                
                 itemDropped.remove(item);
                 
                 break;
@@ -258,6 +324,7 @@ public class GameScreen extends AbstractScreen
             if(character.getPlayer().isColision(scroll.getEntity()))
             {   
                 String res = "SPELL_" + (scroll.getSpellCard().id);
+                System.out.println(res);
             
                 character.getPlayer().setSpell(Spell.valueOf(res));
                 equipment.setSpellCard(scroll.getSpellCard());

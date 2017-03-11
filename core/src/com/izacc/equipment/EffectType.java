@@ -6,9 +6,11 @@
 package com.izacc.equipment;
 
 /**
- *
+ * possible item effects
+ * 
  * @author pawel_000
  */
+
 public enum EffectType 
 {
     hp,

@@ -13,7 +13,7 @@ import com.izacc.utility.Path;
  *
  * @author pawel_000
  */
-public class Item
+public class Item implements Iconable
 {   
     public String name;
     public String file;
@@ -49,8 +49,8 @@ public class Item
         this.buy = json.has("buy") ? json.getInt("buy") : 0;
         this.sell = json.has("sell") ? json.getInt("sell") : 0;
         
-         this.itemType = ItemType.valueOf(json.getString("itemType"));
-         this.effectType = EffectType.valueOf(json.getString("type"));
+        this.itemType = ItemType.valueOf(json.getString("itemType"));
+        this.effectType = EffectType.valueOf(json.getString("type"));
     }
     
     public Texture getIcon()

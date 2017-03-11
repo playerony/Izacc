@@ -31,7 +31,9 @@ public class Entity
         shapeRenderer = new ShapeRenderer();
     }
     
-    public boolean isCircleCollision(Entity e1){
+    // Checking circle collision
+    public boolean isCircleCollision(Entity e1)
+    {
         float xPos = e1.x - x;
         float yPos = e1.y - y;
         float distance = (float) Math.sqrt(Math.pow(xPos, 2) + Math.pow(yPos, 2));
@@ -42,6 +44,7 @@ public class Entity
         return true;
     }
 
+    // checking square collision
     public boolean isColision(Entity e1)
     {
         float leftA, leftB;
