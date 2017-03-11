@@ -24,5 +24,7 @@ public enum EffectType
     shield,
     max_shield,
     gold,
+    immortality,
+    hibernation,
     spell
 }

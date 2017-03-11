@@ -1,6 +1,7 @@
 package com.izacc.character;
 
 import com.izacc.ability.Ability;
+import com.izacc.equipment.Item;
 
 
 /**
@@ -40,6 +41,70 @@ public class Character
 
             default:
                 player = new Warrior(START_X, START_Y);
+                break;
+        }
+    }
+    
+    public void improvePlayerStats(Item item)
+    {
+        switch(item.effectType)
+        {
+            case gold:
+                player.addGold(item.bonus);
+                break;
+                        
+            case max_attack_dmg:
+                player.improveBonusDamage(item.bonus);
+                break;
+                        
+            case max_attack_speed:
+                player.improveBonusAttackSpeed(-item.bonus);
+                break;
+                        
+            case max_speed:
+                player.improveBonusMovemetSpeed(item.bonus);
+                break;
+                        
+            case max_hp:
+                player.improveMaxHealth(item.bonus);
+                break;
+                        
+            case attack_dmg:
+                player.improveBonusDamage(item.bonus);
+                break;
+                        
+            case hp:
+                player.heal(item.bonus);
+                break;
+                        
+            case speed:
+                player.improveBonusMovemetSpeed(item.bonus);
+                break;
+                        
+            case attack_speed:
+                player.improveBonusAttackSpeed(-item.bonus);
+                break;
+        }
+    }
+    
+    public void decreasePlayerStats(Item item)
+    {
+        switch(item.effectType)
+        {
+            case attack_dmg:
+                player.improveBonusDamage(item.bonus);
+                break;
+                        
+            case hp:
+                player.heal(item.bonus);
+                break;
+                        
+            case speed:
+                player.improveBonusMovemetSpeed(-item.bonus);
+                break;
+                        
+            case attack_speed:
+                player.improveBonusAttackSpeed(item.bonus);
                 break;
         }
     }

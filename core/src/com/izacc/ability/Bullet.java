@@ -5,6 +5,7 @@
  */
 package com.izacc.ability;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -15,6 +16,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class Bullet extends Ability
 {
     protected boolean actived = false;
+    private float angle = 0.0f;
+    private float test = 0.5f;
+    private float lifeTime = 0.0f;
     
     public Bullet(int direction, float x, float y) {
         super(direction, x, y);
@@ -70,8 +74,23 @@ public class Bullet extends Ability
     @Override
     public void update() 
     {
+        super.update();
+        
         x+=xVel;
         y+=yVel;
+        
+        if(isRotate){
+            angle += 0.1f;
+            
+            if(angle >= 360.0f)
+                angle = 0.0f;
+            
+            if(test < 15.0f)
+                test+=0.1f;
+            
+            xVel = test * (float) Math.sin(angle);
+            yVel = test * (float) Math.cos(angle);
+        }
     }
 
     @Override

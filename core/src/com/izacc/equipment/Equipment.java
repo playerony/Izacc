@@ -6,7 +6,8 @@
 package com.izacc.equipment;
 
 import com.badlogic.gdx.Gdx;
-import com.izacc.character.*;
+import com.izacc.character.Character;
+import com.izacc.character.Spell;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +30,7 @@ public class Equipment
         bagpack = new ArrayList<Item>();
     }
     
-    public void update(Player player)
+    public void update(Character character)
     {
         timeState+=Gdx.graphics.getDeltaTime();
         if(timeState >= 1.0f)
@@ -42,21 +43,7 @@ public class Equipment
                 }
                 else
                 {
-                    switch(item.effectType)
-                    {
-                        case attack_dmg:
-                            player.addBonusDamage(-item.bonus);
-                            break;
-
-                        case speed:
-                            player.addtBonusMovemetSpeed(-item.bonus);
-                            break;
-
-                        case attack_speed:
-                            player.addBonusAttackSpeed(-item.bonus);
-                            break;
-                    }
-                    
+                    character.decreasePlayerStats(item);
                     bagpack.remove(item);
                         
                     break;
@@ -67,7 +54,7 @@ public class Equipment
             {
                 if(spellCard.time <= 0 && spellCard.effectType == EffectType.spell && spellCard.itemType == ItemType.spell)
                 {
-                    player.setSpell(Spell.SPELL_0);
+                    character.getPlayer().setSpell(Spell.SPELL_0);
                     removeSpell();
                 }
                 else
@@ -126,7 +113,7 @@ public class Equipment
     public void setSpellCard(SpellCard spell)
     {
         if(spellCard != null && spellCard.name.equals(spell.name))
-            spellCard.time+=spell.time;
+            spellCard.time += spell.time;
         else
             spellCard = spell;
     }

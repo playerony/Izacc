@@ -85,7 +85,7 @@ public class GameScreen extends AbstractScreen
         update();
 
         character.render(delta);
-        equipment.update(character.getPlayer());
+        equipment.update(character);
         renderEnemies(delta);
         
         renderDroppedItems(delta);
@@ -101,17 +101,21 @@ public class GameScreen extends AbstractScreen
         font.setColor(Color.BLACK);
         font.draw(batch, str.toString(), 5, izacc.SCREEN_HEIGHT / 2);
         
-        str = "Movement speed: " + character.getPlayer().getBonusMovemetSpeed();
+        str = "Attack speed: " + character.getPlayer().getBonusAttackSpeed();
         font.setColor(Color.BLACK);
         font.draw(batch, str.toString(), 5, izacc.SCREEN_HEIGHT / 2 - 15);
         
-        str = "Hajs: " + character.getPlayer().getGold();
+        str = "Movement speed: " + character.getPlayer().getBonusMovemetSpeed();
         font.setColor(Color.BLACK);
         font.draw(batch, str.toString(), 5, izacc.SCREEN_HEIGHT / 2 - 30);
         
-        str = "Hp: " + character.getPlayer().getMaxHealth()+ " bonus(" + character.getPlayer().getBonusHealth()+ ")";
+        str = "Hajs: " + character.getPlayer().getGold();
         font.setColor(Color.BLACK);
         font.draw(batch, str.toString(), 5, izacc.SCREEN_HEIGHT / 2 - 45);
+        
+        str = "Hp: " + character.getPlayer().getMaxHealth()+ " bonus(" + character.getPlayer().getBonusHealth()+ ")";
+        font.setColor(Color.BLACK);
+        font.draw(batch, str.toString(), 5, izacc.SCREEN_HEIGHT / 2 - 60);
         
         batch.end();
     }
@@ -273,48 +277,9 @@ public class GameScreen extends AbstractScreen
             if(character.getPlayer().isColision(item.getEntity()))
             {   
                 equipment.addItem(item.getItem());
-                
-                switch(item.getItem().effectType)
-                {
-                    case gold:
-                        character.getPlayer().addGold(item.getItem().bonus);
-                        break;
-                        
-                    case max_attack_dmg:
-                        character.getPlayer().addBonusDamage(item.getItem().bonus);
-                        break;
-                        
-                    case max_attack_speed:
-                        character.getPlayer().addBonusAttackSpeed(item.getItem().bonus);
-                        break;
-                        
-                    case max_speed:
-                        character.getPlayer().addtBonusMovemetSpeed(item.getItem().bonus);
-                        break;
-                        
-                    case max_hp:
-                        character.getPlayer().addMaxHealth(item.getItem().bonus);
-                        break;
-                        
-                    case attack_dmg:
-                        character.getPlayer().addBonusDamage(item.getItem().bonus);
-                        break;
-                        
-                    case hp:
-                        character.getPlayer().heal(item.getItem().bonus);
-                        break;
-                        
-                    case speed:
-                        character.getPlayer().addtBonusMovemetSpeed(item.getItem().bonus);
-                        break;
-                        
-                    case attack_speed:
-                        character.getPlayer().addBonusAttackSpeed(item.getItem().bonus);
-                        break;
-                }
+                character.improvePlayerStats(item.getItem());
                 
                 itemDropped.remove(item);
-                
                 break;
             }
         }
@@ -342,10 +307,12 @@ public class GameScreen extends AbstractScreen
 
     private void enemiesUpdate()
     {
-        for(Enemy e : enemy){
+        for(Enemy e : enemy)
+        {
             e.update();
             
-            if(e.isDead()){
+            if(e.isDead())
+            {
                 Item item = null;
                 SpellCard spellCard = null;
                     

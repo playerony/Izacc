@@ -20,21 +20,20 @@ import java.util.ArrayList;
  */
 public abstract class Player extends Entity 
 {
+    private float timeState = 0.0f;
     private final float speed = 5.0f;
     private final float friction = 0.65f;
+    private float baseAttackSpeed = 0.5f;
     private final float baseDamage = 7.5f;
-    private float timeState = 0.0f;
     
-    private float bonusHealth = 0.0f;
     private float bonusMovemetSpeed = 0.0f;
     private float bonusAttackSpeed = 0.0f;
     private float bonusDamage = 0.0f;
-    private float gold = 0.0f;
+    private float bonusHealth = 0.0f;
     
-    private static boolean canShot = false;
-    private static boolean clicked = true;
-
-    protected enum Direction { LEFT, RIGHT, UP, DOWN, STAY };
+    private boolean clicked = true;
+    private boolean canShot = false;
+    private boolean isImmortality = false;
     
     private Direction textureDirection;
     private Direction direction;
@@ -47,9 +46,10 @@ public abstract class Player extends Entity
         super(x, y);
 
         init();
+        
         this.r = 20;
-        this.MAX_HEALTH = 100;
         this.health = 100;
+        this.MAX_HEALTH = 100;
     }
 
     public abstract void render(float delta);
@@ -70,31 +70,41 @@ public abstract class Player extends Entity
         inputHandler();
         move();
         
-        timeState+=Gdx.graphics.getDeltaTime();
-        if(timeState>=0.2f){
-            canShot = true;
-            timeState = 0.0f;
-        }
+        updateAbilities();
+        updateShotTime();
         
-        
-        if(bullets.size() > 0)
-            for(Ability a : bullets)
+        addBulletsToBuffer();
+    }
+    
+    private void updateAbilities()
+    {
+        for(Ability a : bullets)
+        {
+            boolean checked = false;
+            if(a.isActived())
             {
-                boolean checked = false;
-                if(a.isActived())
+                for(Ability b : a.getBullets())
                 {
-                    for(Ability b : a.getBullets()){
-                        bullets.add(b);
-                        checked = true;
-                    }
+                    bullets.add(b);
+                    if(a.isRotate())
+                        b.setIsRotate(true);
+                        
+                    checked = true;
+                }
 
-                    if(checked){
-                        a.getBullets().clear();
-                        bullets.remove(a);
-                        break;
-                    }
+                if(checked)
+                {
+                    a.getBullets().clear();
+                    bullets.remove(a);
+                    break;
                 }
             }
+                
+            if(a.isToRemove()){
+                bullets.remove(a);
+                break;
+            }
+        }
         
         for(Ability a : bullets)
         {
@@ -121,8 +131,16 @@ public abstract class Player extends Entity
                 break;
             }
         }
-        
-         addBulletsToBuffer();
+    }
+    
+    private void updateShotTime()
+    {
+        timeState+=Gdx.graphics.getDeltaTime();
+        if(baseAttackSpeed - bonusAttackSpeed > 0.0f && timeState >= baseAttackSpeed - bonusAttackSpeed)
+        {
+            canShot = true;
+            timeState = 0.0f;
+        }
     }
 
     private void inputHandler() 
@@ -150,7 +168,8 @@ public abstract class Player extends Entity
     
     private void abilityInputHandler()
     {
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && clicked && canShot){
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && clicked && canShot)
+        {
             clicked = false;
             
             switch(spell)
@@ -204,14 +223,17 @@ public abstract class Player extends Entity
         }
     }
     
-    private void addBulletsToBuffer(){
+    private void addBulletsToBuffer()
+    {
         for(Ability a : bullets)
-            if(a.isActived()){
+            if(a.isActived())
+            {
                 for(Bullet b : a.getBullets())
                     bullets.add(b);
                 
                 a.clearBullets();
                 bullets.remove(a);
+                
                 break;
             }
     }
@@ -246,22 +268,47 @@ public abstract class Player extends Entity
         xVel*=friction;
         yVel*=friction;
     }
-
+        
     /**
-     * Getters and Setters
-     */
+    * 
+    * adding methods
+    */
 
-    public float getBonusHealth() 
+    public void improveMaxHealth(float health)
     {
-        return bonusHealth;
+        this.MAX_HEALTH += health;
+        
+        if(MAX_HEALTH <= 0.0f)
+            MAX_HEALTH = 0.0f;
     }
-
-    public void addBonusHealth(float bonusHealth)
+    
+    public void improveBonusHealth(float bonusHealth)
     {
         this.bonusHealth += bonusHealth;
         
         if(this.bonusHealth <= 0.0f)
             this.bonusHealth = 0.0f;
+    }
+    
+    public void improveBonusMovemetSpeed(float bonusMovemetSpeed)
+    {
+        this.bonusMovemetSpeed += bonusMovemetSpeed;
+        
+        if(this.bonusMovemetSpeed <= 0.0f)
+            this.bonusMovemetSpeed = 0.0f;
+    }
+    
+    public void improveBonusAttackSpeed(float bonus)
+    {
+        this.bonusAttackSpeed += bonus;
+    }
+    
+    public void improveBonusDamage(float bonusDamage)
+    {
+        this.bonusDamage += bonusDamage;
+        
+        if(this.bonusDamage <= 0.0f)
+            this.bonusDamage = 0.0f;
     }
     
     public void heal(float hp)
@@ -271,50 +318,6 @@ public abstract class Player extends Entity
         if(this.health >= MAX_HEALTH)
             this.health = MAX_HEALTH;
     }
-
-    public float getBonusMovemetSpeed()
-    {
-        return bonusMovemetSpeed;
-    }
-
-    public void addtBonusMovemetSpeed(float bonusMovemetSpeed)
-    {
-        this.bonusMovemetSpeed += bonusMovemetSpeed;
-        
-        if(this.bonusMovemetSpeed <= 0.0f)
-            this.bonusMovemetSpeed = 0.0f;
-    }
-
-    public float getBonusAttackSpeed()
-    {
-        return bonusAttackSpeed;
-    }
-
-    public void addBonusAttackSpeed(float bonusAttackSpeed)
-    {
-        this.bonusAttackSpeed += bonusAttackSpeed;
-        
-        if(this.bonusAttackSpeed <= 0.0f)
-            this.bonusAttackSpeed = 0.0f;
-    }
-
-    public float getBonusDamage()
-    {
-        return bonusDamage;
-    }
-
-    public void addBonusDamage(float bonusDamage)
-    {
-        this.bonusDamage += bonusDamage;
-        
-        if(this.bonusDamage <= 0.0f)
-            this.bonusDamage = 0.0f;
-    }
-
-    public float getGold()
-    {
-        return gold;
-    }
     
     public void addGold(float gold)
     {
@@ -322,6 +325,35 @@ public abstract class Player extends Entity
         
         if(this.gold <= 0.0f)
             this.gold = 0.0f;
+    }
+    
+    /**
+     * Getters and Setters
+     */
+
+    public float getBonusHealth() 
+    {
+        return bonusHealth;
+    }
+
+    public float getBonusMovemetSpeed()
+    {
+        return bonusMovemetSpeed;
+    }
+
+    public float getBonusAttackSpeed()
+    {
+        return bonusAttackSpeed;
+    }
+
+    public float getBonusDamage()
+    {
+        return bonusDamage;
+    }
+
+    public float getGold()
+    {
+        return gold;
     }
 
     public ArrayList<Ability> getAbilities() 
@@ -343,12 +375,14 @@ public abstract class Player extends Entity
     {
         return baseDamage;
     }
-    
-    public void addMaxHealth(float health){
-        this.MAX_HEALTH += health;
-        
-        if(MAX_HEALTH <= 0.0f){
-            MAX_HEALTH = 0.0f;
-        }
+
+    public boolean isImmortality()
+    {
+        return this.isImmortality;
+    }
+
+    public void setImmortality(boolean isImmortality)
+    {
+        this.isImmortality = isImmortality;
     }
 }

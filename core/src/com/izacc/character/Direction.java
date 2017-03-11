@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.izacc.equipment;
+package com.izacc.character;
 
 /**
  *
  * @author pawel_000
  */
-public enum SpellType
+public enum Direction
 {
-    shot,
-    pet,
-    
-    other
+    LEFT, 
+    RIGHT, 
+    UP, 
+    DOWN, 
+    STAY 
 }

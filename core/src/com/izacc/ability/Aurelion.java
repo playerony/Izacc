@@ -14,20 +14,20 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  */
 public class Aurelion extends Ability
 {
-    private static final float range = 40.0f;
-    
     public Aurelion(int direction, float x, float y)
     {
         super(direction, x, y);
         
         init();
+        
+        this.isRotate = true;
     }
 
     @Override
     public void initSpeed()
     {
         float value = 4.0f;
-        float radius = 2.0f;
+        float radius = 10.0f;
         float xPos = 0.0f;
         float yPos = 0.0f;
         float xV = 0.0f;

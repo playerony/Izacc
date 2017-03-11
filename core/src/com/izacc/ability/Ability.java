@@ -5,6 +5,8 @@
  */
 package com.izacc.ability;
 
+import com.badlogic.gdx.Gdx;
+import com.izacc.character.Direction;
 import com.izacc.utility.Entity;
 import java.util.ArrayList;
 
@@ -16,12 +18,14 @@ public abstract class Ability extends Entity
 {
     protected ArrayList<Bullet> bullets;
     
-    protected float attackSpeed;
+    protected float lifeTime = 0.0f;
+    protected float attackSpeed = 0.0f;
     
-    protected boolean actived = false;
     protected boolean shield = false;
+    protected boolean actived = false;
+    protected boolean isRotate = false;
+    protected boolean toRemove = false;
     
-    public enum Direction { LEFT, RIGHT, UP, DOWN };
     protected Direction direction;
     
     public Ability(int direction, float x, float y)
@@ -39,9 +43,15 @@ public abstract class Ability extends Entity
     
     public abstract void initSpeed();
     
-    public abstract void update();
-    
     public abstract void render(float delta);
+    
+    public void update(){
+        lifeTime+=Gdx.graphics.getDeltaTime();
+        if(lifeTime>=10.0f){
+            lifeTime = 0.0f;
+            toRemove = true;
+        }
+    }
     
     public void clearBullets()
     {
@@ -71,6 +81,21 @@ public abstract class Ability extends Entity
     public boolean isShield()
     {
         return shield;
+    }
+
+    public boolean isRotate()
+    {
+        return isRotate;
+    }
+
+    public void setIsRotate(boolean isRotate)
+    {
+        this.isRotate = isRotate;
+    }
+
+    public boolean isToRemove()
+    {
+        return toRemove;
     }
     
     
