@@ -7,6 +7,7 @@ import com.izacc.ability.Ability;
 import com.izacc.character.Character;
 import com.izacc.character.Spell;
 import com.izacc.enemy.Enemy;
+import com.izacc.equipment.EffectType;
 import com.izacc.equipment.Equipment;
 import com.izacc.equipment.Item;
 import com.izacc.equipment.SpellCard;
@@ -48,7 +49,7 @@ public class GameScreen extends AbstractScreen
         equipment = new Equipment();
         random = new Random();
         
-        character = new Character(Character.Type.MAGE);
+        character = new Character();
         
         itemDropped = new ArrayList<ItemDropped>();
         scrollDropped = new ArrayList<ScrollDropped>();
@@ -200,7 +201,7 @@ public class GameScreen extends AbstractScreen
 
     private void update()
     {
-        character.update();
+        character.update(equipment.getSpellCard());
         enemiesUpdate();
         
         for(Ability en1 : character.getPlayer().getAbilities())
@@ -209,18 +210,18 @@ public class GameScreen extends AbstractScreen
             
             for(Enemy en2 : enemy)
             {
-                if(en1.isCircleCollision(en2) && !en1.isShield())
+                if(en1.isCircleCollision(en2) && en1.getEffectType() != EffectType.shield)
                 {
                     if(character.getPlayer().getSpell() == Spell.SPELL_0)
                         en2.lostHealth(character.getPlayer().getBaseDamage() + character.getPlayer().getBonusDamage());
                     else
-                        en2.lostHealth(equipment.getSpellCard().damage + character.getPlayer().getBaseDamage() + character.getPlayer().getBonusDamage());
+                        en2.lostHealth(en1.getDamage() + character.getPlayer().getBaseDamage() + character.getPlayer().getBonusDamage());
                         
                     character.getPlayer().getAbilities().remove(en1);
                     
                     removed = true;
                 }
-                else if(en1.isCircleCollision(en2) && en1.isShield())
+                else if(en1.isCircleCollision(en2) && en1.getEffectType() == EffectType.shield)
                 {
                     Vector2 U1 = null;
                     Vector2 U2 = null;

@@ -15,6 +15,7 @@ public enum EffectType
 {
     hp,
     max_hp,
+    health,
     speed,
     max_speed,
     attack_dmg,
@@ -25,6 +26,7 @@ public enum EffectType
     max_shield,
     gold,
     immortality,
+    control,
     hibernation,
     spell
 }

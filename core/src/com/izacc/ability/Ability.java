@@ -7,6 +7,7 @@ package com.izacc.ability;
 
 import com.badlogic.gdx.Gdx;
 import com.izacc.character.Direction;
+import com.izacc.equipment.EffectType;
 import com.izacc.utility.Entity;
 import java.util.ArrayList;
 
@@ -16,23 +17,28 @@ import java.util.ArrayList;
  */
 public abstract class Ability extends Entity
 {
-    protected ArrayList<Bullet> bullets;
+    protected ArrayList<Ability> bullets;
     
     protected float lifeTime = 0.0f;
     protected float attackSpeed = 0.0f;
+    protected float damage = 0.0f;
     
-    protected boolean shield = false;
     protected boolean actived = false;
     protected boolean isRotate = false;
     protected boolean toRemove = false;
     
+    protected EffectType effectType;
     protected Direction direction;
     
-    public Ability(int direction, float x, float y)
+    public Ability(int direction, float x, float y, float speed, float damage, EffectType effectType)
     {
         super(x, y);
         
-        bullets = new ArrayList<Bullet>();
+        bullets = new ArrayList<Ability>();
+        this.attackSpeed = speed;
+        this.damage = damage;
+        
+        this.effectType = effectType;
         this.direction = Direction.values()[direction];
     }
     
@@ -45,9 +51,11 @@ public abstract class Ability extends Entity
     
     public abstract void render(float delta);
     
-    public void update(){
+    public void update()
+    {
         lifeTime+=Gdx.graphics.getDeltaTime();
-        if(lifeTime>=10.0f){
+        if(lifeTime>=10.0f)
+        {
             lifeTime = 0.0f;
             toRemove = true;
         }
@@ -73,14 +81,9 @@ public abstract class Ability extends Entity
         this.actived = actived;
     }
     
-    public ArrayList<Bullet> getBullets()
+    public ArrayList<Ability> getBullets()
     {
         return bullets;
-    }
-
-    public boolean isShield()
-    {
-        return shield;
     }
 
     public boolean isRotate()
@@ -97,6 +100,34 @@ public abstract class Ability extends Entity
     {
         return toRemove;
     }
-    
-    
+
+    public float getAttackSpeed()
+    {
+        return attackSpeed;
+    }
+
+    public void setAttackSpeed(float attackSpeed)
+    {
+        this.attackSpeed = attackSpeed;
+    }
+
+    public float getDamage()
+    {
+        return damage;
+    }
+
+    public void setDamage(float damage)
+    {
+        this.damage = damage;
+    }
+
+    public EffectType getEffectType()
+    {
+        return effectType;
+    }
+
+    public void setEffectType(EffectType effectType)
+    {
+        this.effectType = effectType;
+    }
 }

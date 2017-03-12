@@ -8,6 +8,7 @@ package com.izacc.ability;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.izacc.equipment.EffectType;
 
 /**
  *
@@ -18,14 +19,23 @@ public class District extends Ability
     private float MAX_RANGE = 150.0f;
     private float timeState = 0.1f;
     
-    public District(int direction, float x, float y)
+    public District(int direction, float x, float y, float speed, float damage, EffectType effectType)
     {
-        super(direction, x, y);
+        super(direction, x, y, speed, damage, effectType);
         
         this.r = 1.0f;
         this.xVel = 0.5f;
         this.yVel = 0.5f;
-        this.shield = true;
+    }
+    
+    public District(int direction, float x, float y, float speed, float damage, EffectType effectType, float maxRange)
+    {
+        super(direction, x, y, speed, damage, effectType);
+        
+        this.r = 1.0f;
+        this.xVel = 0.5f;
+        this.yVel = 0.5f;
+        this.MAX_RANGE = maxRange;
     }
 
     @Override
@@ -37,7 +47,8 @@ public class District extends Ability
     @Override
     public void update()
     {
-        if(r < MAX_RANGE){
+        if(r < MAX_RANGE)
+        {
             r+=0.5f;
             
             xVel = r / timeState;
@@ -45,7 +56,8 @@ public class District extends Ability
         }
         
         timeState+=Gdx.graphics.getDeltaTime();
-        if(timeState>=7.5f && !actived){
+        if(timeState >= 7.5f && !actived)
+        {
             actived = true;
         }
     }

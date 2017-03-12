@@ -52,7 +52,7 @@ public class Equipment
             
             if(spellCard != null)
             {
-                if(spellCard.time <= 0 && spellCard.effectType == EffectType.spell && spellCard.itemType == ItemType.spell)
+                if(spellCard.time <= 0 && spellCard.itemType == ItemType.spell)
                 {
                     character.getPlayer().setSpell(Spell.SPELL_0);
                     removeSpell();

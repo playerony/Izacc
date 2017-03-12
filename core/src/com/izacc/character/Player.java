@@ -3,14 +3,11 @@ package com.izacc.character;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.izacc.ability.Ability;
-import com.izacc.ability.Aurelion;
-import com.izacc.ability.Bullet;
-import com.izacc.ability.District;
-import com.izacc.ability.FireBall;
-import com.izacc.ability.Garnet;
-import com.izacc.ability.SunShot;
-import com.izacc.ability.ThrowGarnet;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.izacc.ability.*;
+import com.izacc.equipment.EffectType;
+import com.izacc.equipment.SpellCard;
 import com.izacc.game.Izacc;
 import com.izacc.utility.Entity;
 import java.util.ArrayList;
@@ -18,12 +15,12 @@ import java.util.ArrayList;
 /**
  * Created by pawel_000 on 2017-02-25.
  */
-public abstract class Player extends Entity 
+public class Player extends Entity 
 {
     private float timeState = 0.0f;
     private final float speed = 5.0f;
     private final float friction = 0.65f;
-    private float baseAttackSpeed = 0.5f;
+    private float baseAttackSpeed = 0.2f;
     private final float baseDamage = 7.5f;
     
     private float bonusMovemetSpeed = 0.0f;
@@ -52,9 +49,13 @@ public abstract class Player extends Entity
         this.MAX_HEALTH = 100;
     }
 
-    public abstract void render(float delta);
-
-    public abstract void attack(Entity entity);
+    public void render(float delta)
+    {
+        shapeRenderer.setColor(Color.BLUE);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.circle(x, y, r);
+        shapeRenderer.end();
+    }
     
     private void init()
     {
@@ -65,9 +66,9 @@ public abstract class Player extends Entity
         bullets = new ArrayList<Ability>();
     }
 
-    public void update()
+    public void update(SpellCard spellCard)
     {
-        inputHandler();
+        inputHandler(spellCard);
         move();
         
         updateAbilities();
@@ -143,9 +144,9 @@ public abstract class Player extends Entity
         }
     }
 
-    private void inputHandler() 
+    private void inputHandler(SpellCard spellCard) 
     {
-        abilityInputHandler();
+        abilityInputHandler(spellCard);
         controlInputHandler();
     }
     
@@ -166,7 +167,7 @@ public abstract class Player extends Entity
             textureDirection = direction;
     }
     
-    private void abilityInputHandler()
+    private void abilityInputHandler(SpellCard spellCard)
     {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && clicked && canShot)
         {
@@ -175,44 +176,85 @@ public abstract class Player extends Entity
             switch(spell)
             {
                 case SPELL_1:
-                    bullets.add(new FireBall(textureDirection.ordinal(), x, y, 12.5f));
+                    bullets.add(new FireBall(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType, 12.5f));
                     break;
                     
                 case SPELL_2:
-                    bullets.add(new FireBall(textureDirection.ordinal(), x, y));
+                    bullets.add(new Hibernation(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType));
                     break;
                     
                 case SPELL_3:
-                    bullets.add(new SunShot(textureDirection.ordinal(), x, y, 8));
+                    bullets.add(new IceArrow(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType));
                     break;
                     
                 case SPELL_4:
-                    bullets.add(new Garnet(textureDirection.ordinal(), x, y));
+                    bullets.add(new SunShot(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType, 8));
                     break;
                 
                 case SPELL_5:
-                    bullets.add(new SunShot(textureDirection.ordinal(), x, y, 16));
+                    bullets.add(new Garnet(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType));
                     break;
                     
                 case SPELL_6:
-                    bullets.add(new ThrowGarnet(textureDirection.ordinal(), x, y));
+                    bullets.add(new Hibernation(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType));
                     break;
                     
                 case SPELL_7:
-                    bullets.add(new District(textureDirection.ordinal(), x, y));
-                    spell = Spell.SPELL_0;
+                    bullets.add(new IceArrow(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType, 10.0f));
                     break;
                     
                 case SPELL_8:
-                    bullets.add(new Aurelion(textureDirection.ordinal(), x, y));
+                    bullets.add(new District(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType, 75.0f));
+                    spell = Spell.SPELL_0;
                     break;
                     
                 case SPELL_9:
-                    bullets.add(new SunShot(textureDirection.ordinal(), x, y, 24));
+                    bullets.add(new FireBall(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType));
+                    break;
+                    
+                case SPELL_10:
+                    bullets.add(new SunShot(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType, 16));
+                    break;
+                    
+                case SPELL_11:
+                    bullets.add(new ThrowGarnet(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType));
+                    break;
+                    
+                case SPELL_12:
+                    bullets.add(new IceArrow(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType, 15.0f));
+                    break;
+                    
+                case SPELL_13:
+                    bullets.add(new District(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType));
+                    spell = Spell.SPELL_0;
+                    break;
+                    
+                case SPELL_14:
+                    bullets.add(new Aurelion(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType));
+                    break;
+                    
+                case SPELL_15:
+                    bullets.add(new HellFire(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType));
+                    break;
+                    
+                case SPELL_16:
+                    
+                    break;
+                    
+                case SPELL_17:
+                    bullets.add(new Control(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType));
+                    break;
+                    
+                case SPELL_18:
+                    bullets.add(new Hibernation(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType));
+                    break;
+                    
+                case SPELL_19:
+                    bullets.add(new SunShot(textureDirection.ordinal(), x, y, spellCard.speed, spellCard.damage, spellCard.effectType, 24));
                     break;
                     
                 default:
-                    bullets.add(new Bullet(textureDirection.ordinal(), x, y));
+                    bullets.add(new Bullet(textureDirection.ordinal(), x, y, 5.3f, 7.5f, EffectType.spell));
                     break;
             }
             canShot = false;
@@ -228,7 +270,7 @@ public abstract class Player extends Entity
         for(Ability a : bullets)
             if(a.isActived())
             {
-                for(Bullet b : a.getBullets())
+                for(Ability b : a.getBullets())
                     bullets.add(b);
                 
                 a.clearBullets();

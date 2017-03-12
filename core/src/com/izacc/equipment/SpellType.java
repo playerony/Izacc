@@ -13,6 +13,5 @@ public enum SpellType
 {
     shot,
     pet,
-    
     other
 }

@@ -23,15 +23,15 @@ public class SpellCreator extends Creator
             switch(rank)
             {
                 case 0:
-                    jsonValue = itemLoader.getSpells().get(random.nextInt(3));
+                    jsonValue = itemLoader.getSpells().get(random.nextInt(7));
                     break;
                     
                 case 1:
-                    jsonValue = itemLoader.getSpells().get(random.nextInt(3) + 3);
+                    jsonValue = itemLoader.getSpells().get(random.nextInt(8) + 6);
                     break;
                     
                 default:
-                    jsonValue = itemLoader.getSpells().get(random.nextInt(3) + 6);
+                    jsonValue = itemLoader.getSpells().get(random.nextInt(7) + 13);
                     break;
             }
             

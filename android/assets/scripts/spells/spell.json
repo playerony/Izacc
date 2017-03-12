@@ -1,10 +1,11 @@
 [
 	{
-		name: "Small File Ball",
+		name: "Fire Arrow",
 		description: "Scroll 1",
 		file: "scroll_1.png",
 		type: "spell",
 		damage: 20,
+		speed: 5.3,
 		time: 20,
 		buy: 100,
 		sell: 50,
@@ -13,17 +14,34 @@
 		itemType: "spell"
 		spellType: "shot"
 	},
-
+	
 	{
-		name: "Fire Ball",
+		name: "Small Hibernation",
 		description: "Scroll 1",
 		file: "scroll_1.png",
 		type: "spell",
-		damage: 30,
-		time: 10,
+		damage: 20,
+		speed: 3.3,
+		time: 3,
 		buy: 100,
 		sell: 50,
 		id: 2,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "Ice Arrow",
+		description: "Scroll 1",
+		file: "scroll_1.png",
+		type: "spell",
+		damage: 20,
+		speed: 5.3,
+		time: 20,
+		buy: 100,
+		sell: 50,
+		id: 3,
 		disable: true,
 		itemType: "spell"
 		spellType: "shot"
@@ -35,10 +53,11 @@
 		file: "scroll_1.png",
 		type: "spell",
 		damage: 10,
+		speed: 5.3,
 		time: 5,
 		buy: 100,
 		sell: 50,
-		id: 3,
+		id: 4,
 		disable: true,
 		itemType: "spell"
 		spellType: "shot"
@@ -50,10 +69,73 @@
 		file: "scroll_1.png",
 		type: "spell",
 		damage: 25,
+		speed: 5.3,
 		time: 5,
 		buy: 100,
 		sell: 50,
-		id: 4,
+		id: 5,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "Hibernation",
+		description: "Scroll 1",
+		file: "scroll_1.png",
+		type: "spell",
+		damage: 20,
+		speed: 5.3,
+		time: 5,
+		buy: 100,
+		sell: 50,
+		id: 6,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "Ice Ball",
+		description: "Scroll 1",
+		file: "scroll_1.png",
+		type: "spell",
+		damage: 30,
+		speed: 5.3,
+		time: 10,
+		buy: 100,
+		sell: 50,
+		id: 7,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "Small District",
+		description: "Shield",
+		file: "scroll_1.png",
+		type: "shield",
+		speed: 5.3,
+		time: 5,
+		buy: 100,
+		sell: 50,
+		id: 8,
+		itemType: "spell"
+		spellType: "other"
+	},
+	
+	{
+		name: "Fire Ball",
+		description: "Scroll 1",
+		file: "scroll_1.png",
+		type: "spell",
+		damage: 30,
+		speed: 5.3,
+		time: 10,
+		buy: 100,
+		sell: 50,
+		id: 9,
 		disable: true,
 		itemType: "spell"
 		spellType: "shot"
@@ -65,10 +147,11 @@
 		file: "scroll_1.png",
 		type: "spell",
 		damage: 20,
+		speed: 5.3,
 		time: 5,
 		buy: 100,
 		sell: 50,
-		id: 5,
+		id: 10,
 		disable: true,
 		itemType: "spell"
 		spellType: "shot"
@@ -80,10 +163,27 @@
 		file: "scroll_1.png",
 		type: "spell",
 		damage: 30,
+		speed: 5.3,
 		time: 5,
 		buy: 100,
 		sell: 50,
-		id: 6,
+		id: 11,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "Ice Lance",
+		description: "Scroll 1",
+		file: "scroll_1.png",
+		type: "spell",
+		damage: 30,
+		speed: 5.3,
+		time: 10,
+		buy: 100,
+		sell: 50,
+		id: 12,
 		disable: true,
 		itemType: "spell"
 		spellType: "shot"
@@ -93,11 +193,12 @@
 		name: "District ?",
 		description: "Shield",
 		file: "scroll_1.png",
-		type: "spell",
+		type: "shield",
+		speed: 5.3,
 		time: 5,
 		buy: 100,
 		sell: 50,
-		id: 7,
+		id: 13,
 		itemType: "spell"
 		spellType: "other"
 	},
@@ -108,10 +209,75 @@
 		file: "scroll_1.png",
 		type: "spell",
 		damage: 50,
+		speed: 5.3,
 		time: 5,
 		buy: 100,
 		sell: 50,
-		id: 8,
+		id: 14,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "Hell fire",
+		description: "Aurelion Sol",
+		file: "scroll_1.png",
+		type: "spell",
+		damage: 50,
+		speed: 5.3,
+		time: 5,
+		buy: 100,
+		sell: 50,
+		id: 15,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "Indestructibility",
+		description: "indestructibility",
+		file: "scroll_1.png",
+		type: "spell",
+		damage: 50,
+		speed: 5.3,
+		time: 5,
+		buy: 100,
+		sell: 50,
+		id: 16,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "Under Control",
+		description: "indestructibility",
+		file: "scroll_1.png",
+		type: "control",
+		damage: 50,
+		speed: 5.3,
+		time: 5,
+		buy: 100,
+		sell: 50,
+		id: 17,
+		disable: true,
+		itemType: "spell"
+		spellType: "shot"
+	},
+	
+	{
+		name: "Massive Hibernation",
+		description: "Scroll 1",
+		file: "scroll_1.png",
+		type: "spell",
+		damage: 20,
+		speed: 5.3,
+		time: 5,
+		buy: 100,
+		sell: 50,
+		id: 18,
 		disable: true,
 		itemType: "spell"
 		spellType: "shot"
@@ -123,10 +289,11 @@
 		file: "scroll_1.png",
 		type: "spell",
 		damage: 40,
+		speed: 5.3,
 		time: 5,
 		buy: 100,
 		sell: 50,
-		id: 9,
+		id: 19,
 		disable: true,
 		itemType: "spell"
 		spellType: "shot"

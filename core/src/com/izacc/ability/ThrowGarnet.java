@@ -8,7 +8,7 @@ package com.izacc.ability;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.izacc.character.Player;
+import com.izacc.equipment.EffectType;
 
 /**
  *
@@ -16,12 +16,12 @@ import com.izacc.character.Player;
  */
 public class ThrowGarnet extends Ability
 {
-    private static final float friction = 0.985f;
+    private static final float friction = 0.9f;
     private static float timeState;
 
-    public ThrowGarnet(int direction, float x, float y)
+    public ThrowGarnet(int direction, float x, float y, float speed, float damage, EffectType effectType)
     {
-        super(direction, x, y);
+        super(direction, x, y, speed, damage, effectType);
         
         this.r = 10.0f;
         this.timeState = 0.0f;
@@ -33,8 +33,6 @@ public class ThrowGarnet extends Ability
     @Override
     public void initSpeed()
     {
-        attackSpeed = 6.9f;
-        
         switch(direction){
             case LEFT:
                 xVel = -attackSpeed;
@@ -69,8 +67,8 @@ public class ThrowGarnet extends Ability
         
         timeState+=Gdx.graphics.getDeltaTime();
         if(timeState>=1.0f){
-            SunShot sunShot = new SunShot(direction.ordinal(), x, y, 5.0f);
-            for(Bullet b : sunShot.getBullets()){
+            SunShot sunShot = new SunShot(direction.ordinal(), x, y, attackSpeed, damage, effectType, 5.0f);
+            for(Ability b : sunShot.getBullets()){
                 bullets.add(b);
             }
             

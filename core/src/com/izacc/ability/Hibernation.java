@@ -7,6 +7,7 @@ package com.izacc.ability;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.izacc.equipment.EffectType;
 
 /**
  *
@@ -15,9 +16,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class Hibernation extends Ability
 {
 
-    public Hibernation(int direction, float x, float y)
+    public Hibernation(int direction, float x, float y, float speed, float damage, EffectType effectType)
     {
-        super(direction, x, y);
+        super(direction, x, y, speed, damage, effectType);
         
         this.r = 7.5f;
         
@@ -26,9 +27,7 @@ public class Hibernation extends Ability
 
     @Override
     public void initSpeed()
-    {
-        attackSpeed = 3.4f;
-        
+    {   
         switch(direction){
             case LEFT:
                 xVel = -attackSpeed;

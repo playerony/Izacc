@@ -2,6 +2,7 @@ package com.izacc.character;
 
 import com.izacc.ability.Ability;
 import com.izacc.equipment.Item;
+import com.izacc.equipment.SpellCard;
 
 
 /**
@@ -12,13 +13,10 @@ public class Character
     private static final int START_X = 200;
     private static final int START_Y = 200;
 
-    public enum Type{ WARRIOR, MAGE, ARCHER };
-    private Type type;
     private Player player;
 
-    public Character(Type type)
+    public Character()
     {
-        this.type = type;
         init();
     }
 
@@ -29,20 +27,7 @@ public class Character
 
     private void initPlayer()
     {
-        switch (type)
-        {
-            case MAGE:
-                player = new Mage(START_X, START_Y);
-                break;
-
-            case ARCHER:
-                player = new Archer(START_X, START_Y);
-                break;
-
-            default:
-                player = new Warrior(START_X, START_Y);
-                break;
-        }
+        player = new Player(START_X, START_Y);
     }
     
     public void improvePlayerStats(Item item)
@@ -109,9 +94,9 @@ public class Character
         }
     }
 
-    public void update()
+    public void update(SpellCard spellCard)
     {
-        player.update();
+        player.update(spellCard);
     }
 
     public void render(float delta)
@@ -128,11 +113,6 @@ public class Character
      *
      * Getters
      */
-
-    public Type getType() 
-    {
-        return type;
-    }
 
     public Player getPlayer() 
     {

@@ -8,6 +8,7 @@ package com.izacc.ability;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.izacc.equipment.EffectType;
 import java.util.Random;
 
 /**
@@ -19,23 +20,23 @@ public class Garnet extends Ability
     private float timeState = 0.0f;
     private int power = 20;
     
-    public Garnet(int direction, float x, float y)
+    public Garnet(int direction, float x, float y, float speed, float damage, EffectType effectType)
     {
-        super(direction, x, y);
+        super(direction, x, y, speed, damage, effectType);
         
         this.r = 30.0f;
     }
     
-    public Garnet(int direction, float x, float y, float r)
+    public Garnet(int direction, float x, float y, float speed, float damage, EffectType effectType, float r)
     {
-        super(direction, x, y);
+        super(direction, x, y, speed, damage, effectType);
         
         this.r = r;
     }
     
-    public Garnet(int direction, float x, float y, float r, int power)
+    public Garnet(int direction, float x, float y, float speed, float damage, EffectType effectType,  float r, int power)
     {
-        super(direction, x, y);
+        super(direction, x, y, speed, damage, effectType);
         
         this.r = r;
         this.power = power;
@@ -44,7 +45,7 @@ public class Garnet extends Ability
     @Override
     public void initSpeed()
     {
-        attackSpeed = 4.5f;
+        
     }
 
     @Override
@@ -63,7 +64,7 @@ public class Garnet extends Ability
                   yV = random.nextInt(power) - power / 2;
                 }while(xV == 0 || yV == 0);
                 
-                bullets.add(new Bullet(direction.ordinal(), x, y, xV, yV));
+                bullets.add(new Bullet(direction.ordinal(), x, y, attackSpeed, damage, effectType, xV, yV));
             }
             
             timeState = 0;

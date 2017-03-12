@@ -5,9 +5,9 @@
  */
 package com.izacc.ability;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.izacc.equipment.EffectType;
 
 /**
  *
@@ -20,23 +20,23 @@ public class Bullet extends Ability
     private float test = 0.5f;
     private float lifeTime = 0.0f;
     
-    public Bullet(int direction, float x, float y) {
-        super(direction, x, y);
+    public Bullet(int direction, float x, float y, float speed, float damage, EffectType effectType) {
+        super(direction, x, y, speed, damage, effectType);
         
         init();
         
         this.r = 5.0f;
     }
 
-    public Bullet(int direction, float x, float y, float xVel, float yVel) {
-        super(direction, x, y);
+    public Bullet(int direction, float x, float y, float speed, float damage, EffectType effectType,  float xVel, float yVel) {
+        super(direction, x, y, speed, damage, effectType);
         
         this.xVel = xVel;
         this.yVel = yVel;
     }
     
-    public Bullet(int direction, float x, float y, float xVel, float yVel, float r) {
-        super(direction, x, y);
+    public Bullet(int direction, float x, float y, float speed, float damage, EffectType effectType, float xVel, float yVel, float r) {
+        super(direction, x, y, speed, damage, effectType);
         
         this.xVel = xVel;
         this.yVel = yVel;
@@ -46,8 +46,6 @@ public class Bullet extends Ability
     @Override
     public void initSpeed() 
     {
-        attackSpeed = 5.2f;
-        
         switch(direction){
             case LEFT:
                 xVel = -attackSpeed;
